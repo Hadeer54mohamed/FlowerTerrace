@@ -1,5 +1,10 @@
 import { useTranslations, useLocale } from "next-intl";
 
+function stripHtml(html) {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "");
+}
+
 export default function MenuItem({ item, onOpenDetails, hidePrice }) {
   const t = useTranslations("");
   const locale = useLocale();
@@ -22,7 +27,7 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
         src={item.image || "/images/food.jpg"}
         alt={displayName}
         onError={(e) => (e.target.src = "/images/food.jpg")}
-        className="w-40 h-40 object-cover rounded-full border-2 border-[#FFD166] shadow-md mt-4"
+        className="w-40 h-40 object-cover rounded-full shadow-md"
       />
 
       {/* اسم المنتج */}
@@ -30,9 +35,16 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
         {displayName}
       </h3>
 
+      {/* التصنيف */}
+      {item.category && (
+        <p className="mt-1 text-xs text-[#F5F5F5] text-center opacity-75">
+          {locale === "ar" ? item.category.name_ar : item.category.name_en || item.category.name_ar}
+        </p>
+      )}
+
       {/* الوصف */}
       <p className="mt-2 text-sm text-[#F5F5F5] text-center line-clamp-2">
-        {displayDescription || ""}
+        {stripHtml(displayDescription) || ""}
       </p>
 
       {/* السعر */}

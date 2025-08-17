@@ -35,6 +35,11 @@ function ItemDetailsModal({ item, onClose }) {
       : item.description_en || item.description;
   const displayType = locale === "ar" ? item.type : item.type_en || item.type;
 
+  function stripHtml(html) {
+    if (!html) return "";
+    return html.replace(/<[^>]*>/g, ""); // يشيل كل الوسوم
+  }
+  console.log("look: " + displayDescription);
   return (
     <div
       className="modal-backdrop"
@@ -69,6 +74,12 @@ function ItemDetailsModal({ item, onClose }) {
         <div className="modal-details">
           <h2 className="modal-title">{displayName}</h2>
 
+          {item.category && (
+            <p className="modal-type">
+              {locale === "ar" ? "التصنيف:" : "Category:"} {locale === "ar" ? item.category.name_ar : item.category.name_en || item.category.name_ar}
+            </p>
+          )}
+
           {displayType && (
             <p className="modal-type">
               {locale === "ar" ? "النوع:" : "Type:"} {displayType}
@@ -76,7 +87,7 @@ function ItemDetailsModal({ item, onClose }) {
           )}
 
           {displayDescription && (
-            <p className="modal-description">{displayDescription}</p>
+            <p className="modal-description">{stripHtml(displayDescription)}</p>
           )}
 
           {/* الأسعار بالأحجام */}

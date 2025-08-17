@@ -11,15 +11,15 @@
   "languageToggle": "العربية",
   "detailsbtn": "Details",
   "priceLabel": "Price",
-  "currency": "EGP",
+  "currency": "SAR",
   "FilterBar": {
-      "all": "All",
-      "meals": "Meals",
-      "drinks": "Drinks",
-      "appetizers": "Appetizers",
-      "desserts": "Desserts",
-      "searchPlaceholder": "Search for a meal..."
-    },
+    "all": "All",
+    "meals": "Meals",
+    "drinks": "Drinks",
+    "appetizers": "Appetizers",
+    "desserts": "Desserts",
+    "searchPlaceholder": "Search for a meal..."
+  },
   "About": {
     "title": "About Our Restaurant",
     "description": "We serve the most delicious traditional Arabic cuisine using the latest methods and finest ingredients. Our experience extends over 20 years in authentic Arabic cooking."
@@ -27,10 +27,10 @@
   "Contact": {
     "title": "Contact Us",
     "adressT": "Adress",
-    "phoneT":"phone",
+    "phoneT": "phone",
     "address": " Tanta ,Egypt",
     "phone": " 17888",
-    "emailT":"Email",
+    "emailT": "Email",
     "email": "info@restaurant.com",
     "hours": " 11:00 AM - 11:00 PM"
   },

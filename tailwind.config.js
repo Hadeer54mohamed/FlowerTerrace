@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        arabic: ['"Noto Kufi Arabic"', '"Arial"', "sans-serif"],
-        noto: ['"Noto Kufi Arabic"', '"Arial"', "sans-serif"],
+        arabic: ["Noto Kufi Arabic", "Arial", "sans-serif"],
+        noto: ["Noto Kufi Arabic", "Arial", "sans-serif"],
       },
     },
   },
