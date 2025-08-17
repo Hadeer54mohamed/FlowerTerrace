@@ -1,0 +1,46 @@
+{
+  "Hero": {
+    "heroTitle": "Welcome to Our Restaurant",
+    "heroDec": "The most delicious food and drinks prepared by expert chefs",
+    "herobtn": "Browse Menu"
+  },
+  "header": "Flower Terrace",
+  "menu": "Menu",
+  "about": "About",
+  "contact": "Contact",
+  "languageToggle": "العربية",
+  "detailsbtn": "Details",
+  "priceLabel": "Price",
+  "currency": "EGP",
+  "FilterBar": {
+      "all": "All",
+      "meals": "Meals",
+      "drinks": "Drinks",
+      "appetizers": "Appetizers",
+      "desserts": "Desserts",
+      "searchPlaceholder": "Search for a meal..."
+    },
+  "About": {
+    "title": "About Our Restaurant",
+    "description": "We serve the most delicious traditional Arabic cuisine using the latest methods and finest ingredients. Our experience extends over 20 years in authentic Arabic cooking."
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "adressT": "Adress",
+    "phoneT":"phone",
+    "address": " Tanta ,Egypt",
+    "phone": " 17888",
+    "emailT":"Email",
+    "email": "info@restaurant.com",
+    "hours": " 11:00 AM - 11:00 PM"
+  },
+  "Footer": {
+    "copyright": "All rights reserved © 2024 Our  Restaurant",
+    "hours": "Working Hours: Daily from 10 AM to 11 PM"
+  },
+  "EmptyState": {
+    "alt": "Hands icon indicating no search results",
+    "title": "We couldn't find what you're looking for",
+    "description": "Try different keywords or browse another category"
+  }
+}
