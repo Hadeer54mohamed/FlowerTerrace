@@ -1,12 +1,14 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts, getCategories } from "../../../services/getProducts";
 
 export default function FilterBar({ filter, setFilter }) {
   const t = useTranslations("FilterBar");
   const locale = useLocale();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const { data: products, isLoading: productsLoading } = useQuery({
     queryKey: ["products"],
@@ -23,11 +25,19 @@ export default function FilterBar({ filter, setFilter }) {
   });
 
   const isLoading = productsLoading || categoriesLoading;
-console.log( "categories" + categories)
+
   return (
     <section id="menu" className="filterBarSection">
-      <div className="filterButtonsContainer">
-        {/* زر الكل */}
+
+      <button
+        type="button"
+        className="filterToggleBtn"
+        onClick={() => setIsFilterOpen((prev) => !prev)}
+      >
+        ☰
+      </button>
+
+      <div className={`filterButtonsContainer ${isFilterOpen ? "show" : ""}`}>
         <button
           type="button"
           className={`filterButton ${
@@ -37,8 +47,7 @@ console.log( "categories" + categories)
         >
           {t("all")}
         </button>
-
-        {/* زر التحميل أثناء الفتش */}
+  
         {isLoading && (
           <button
             type="button"
@@ -48,8 +57,7 @@ console.log( "categories" + categories)
             ...
           </button>
         )}
-
-        {/* التصنيفات */}
+  
         {!isLoading &&
           categories?.map((cat, idx) => {
             const label =
@@ -58,19 +66,17 @@ console.log( "categories" + categories)
               typeof filter === "object" &&
               filter?.name_ar === cat.name_ar &&
               filter?.name_en === cat.name_en;
-
+  
             return (
               <button
                 key={`${idx}-${label}`}
                 type="button"
-                className={`filterButton ${
-                  isActive ? "filterButtonActive" : "filterButtonInactive"
-                }`}
+                className={`filterButton filterButtonInactive`}
                 onClick={() =>
-                  setFilter({ 
+                  setFilter({
                     id: cat.id,
-                    name_ar: cat.name_ar, 
-                    name_en: cat.name_en 
+                    name_ar: cat.name_ar,
+                    name_en: cat.name_en,
                   })
                 }
               >
@@ -78,8 +84,7 @@ console.log( "categories" + categories)
               </button>
             );
           })}
-
-        {/* رسالة عندما لا توجد تصنيفات */}
+  
         {!isLoading && (!categories || categories.length === 0) && (
           <div className="text-[#F5F5F5] text-sm opacity-75">
             لا توجد تصنيفات متاحة
@@ -88,4 +93,5 @@ console.log( "categories" + categories)
       </div>
     </section>
   );
+  
 }

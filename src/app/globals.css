@@ -3,34 +3,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --primary-color: #003824;
-  --secondary-color: #f6ad55;
+  --secondary-color: #ffffff;     /* الأزرار بيضا */
   --accent-color: #012921;
   --accent-dark: #002011;
   --accent-darker: #00150a;
-  --highlight-color: #e67e22;
+  --highlight-color: #003824;     /* النصوص أخضر غامق */
   --text-light: #f5f5f5;
   --text-dark: #1f2937;
   --bg-light: #fffaf5;
 }
-
 html,
 body {
-  font-family: "Noto Kufi Arabic", Arial, sans-serif;
+  font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
   transition: all 0.3s ease;
   background: url("/images/bg.jpg") no-repeat center center fixed;
   background-size: cover;
   background-color: var(--primary-color);
   color: var(--text-light);
   line-height: 1.6;
-  margin: 0px !important;
-  padding: 0px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
 }
-
-/* Ensure font loading */
 @font-face {
-  font-family: "Noto Kufi Arabic", Arial, sans-serif;
+  font-family: "Noto Kufi Arabic";
   font-style: normal;
   font-weight: normal;
   font-display: swap;
@@ -40,107 +39,50 @@ body {
     U+FB50-FDFF, U+FE80-FEFC;
 }
 
-/* Force font application for Arabic text */
 [dir="rtl"],
-[lang="ar"] {
-  font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
-}
-
-/* Additional font application rules */
+[lang="ar"],
 * {
-  font-family: "Noto Kufi Arabic", Arial, sans-serif;
-}
-
-/* Ensure all text elements use the Arabic font */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-div,
-button,
-input,
-textarea,
-label {
   font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
 }
 
-/* Specific override for Bootstrap if needed */
-.btn,
-.form-control,
-.navbar-brand,
-.nav-link {
+h1, h2, h3, h4, h5, h6,
+p, span, div, button, input, textarea, label,
+.btn, .form-control, .navbar-brand, .nav-link {
   font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
 }
 
-.menu-item,
-.filter-btn,
-.language-switcher,
-.lang-btn,
-.hero-image,
-.aboutImage,
-.cartOpenButton,
-.cartCloseButton,
-.cartOrderButton,
-.filterButton,
-.footerSocialIcon,
-.searchInput,
-.heroButton,
-.modal-close-btn,
-.menu-item-image,
-.menu-item-button,
+.menu-item, .filter-btn, .language-switcher, .lang-btn,
+.hero-image, .aboutImage, .cartOpenButton, .cartCloseButton,
+.cartOrderButton, .filterButton, .footerSocialIcon, .searchInput,
+.heroButton, .modal-close-btn, .menu-item-image, .menu-item-button,
 .menu-card {
   transition: all 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-[dir="rtl"] .search-icon {
-  right: auto;
-  left: 0.75rem;
-}
-[dir="rtl"] .modal-close-btn {
-  right: auto;
-  left: 1rem;
-}
-[dir="rtl"] .modal-info-row {
-  flex-direction: row-reverse;
-}
-[dir="ltr"] .modal-info-row {
-  flex-direction: row;
-}
-[dir="rtl"] .modal-label {
-  margin-left: 1rem;
-  margin-right: 0;
-}
-[dir="ltr"] .modal-label {
-  margin-left: 0;
-  margin-right: 1rem;
-}
-[dir="rtl"] .modal-description {
-  text-align: right;
-}
-[dir="ltr"] .modal-description {
-  text-align: left;
-}
+/* RTL Adjustments */
+[dir="rtl"] .search-icon { right: auto; left: 0.75rem; }
+[dir="rtl"] .modal-close-btn { right: auto; left: 1rem; }
+[dir="rtl"] .modal-info-row { flex-direction: row-reverse; }
+[dir="ltr"] .modal-info-row { flex-direction: row; }
+[dir="rtl"] .modal-label { margin-left: 1rem; margin-right: 0; }
+[dir="ltr"] .modal-label { margin-left: 0; margin-right: 1rem; }
+[dir="rtl"] .modal-description { text-align: right; }
+[dir="ltr"] .modal-description { text-align: left; }
+
 
 .header-bg {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   height: 279px;
   background-image: url("/images/headerbg.png");
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: cover;
 }
 
 .logo-img {
@@ -148,7 +90,7 @@ label {
 }
 
 .header-title {
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
   color: var(--text-light);
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
@@ -161,18 +103,19 @@ label {
   font-weight: normal;
   position: relative;
 }
-.navz {
-  display: none;
-}
+.navz { display: none; }
+
 .desktop-nav .nav-link:hover {
   color: var(--highlight-color);
   transform: translateY(-2px);
 }
+
 .logo {
   margin: auto;
   text-align: center;
-  padding: 0px;
+  padding: 0;
 }
+
 .desktop-nav .nav-link::after {
   content: "";
   position: absolute;
@@ -194,7 +137,7 @@ label {
   background-color: var(--secondary-color);
   color: var(--text-light);
   border-radius: 0.5rem;
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -206,9 +149,7 @@ label {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.overlay-bg {
-  background-color: rgba(0, 0, 0, 0.6);
-}
+.overlay-bg { background-color: rgba(0, 0, 0, 0.6); }
 
 .mobile-menu {
   background: linear-gradient(to top, var(--primary-color), var(--accent-dark));
@@ -229,7 +170,7 @@ label {
   gap: 0.75rem;
   padding: 0.75rem 0;
   color: var(--text-light);
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
 }
 
@@ -245,7 +186,7 @@ label {
 }
 
 .aboutTitle {
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
   margin-bottom: 2.5rem;
   color: var(--secondary-color);
@@ -258,6 +199,9 @@ label {
   box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2),
     0 6px 10px -3px rgba(0, 0, 0, 0.1);
   border: 3px solid var(--secondary-color);
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .aboutImage:hover {
@@ -271,7 +215,7 @@ label {
   flex-direction: column;
   justify-content: center;
   color: var(--text-light);
-  font-size: 13pt;
+  font-size: 9pt;
   line-height: 1.8;
   gap: 1.5rem;
   padding: 0 1rem;
@@ -285,7 +229,7 @@ label {
 }
 
 .contactTitle {
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
   margin-bottom: 2.5rem;
   color: var(--secondary-color);
@@ -296,7 +240,7 @@ label {
   font-weight: normal;
   margin-bottom: 0.75rem;
   color: var(--text-light);
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .contactIcon {
@@ -319,7 +263,7 @@ label {
     0 5px 8px -2px rgba(230, 126, 34, 0.5);
   border: none;
   cursor: pointer;
-  font-size: 13pt;
+  font-size: 9pt;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -338,7 +282,7 @@ label {
   border: none;
   color: var(--secondary-color);
   cursor: pointer;
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
 }
 
@@ -357,7 +301,7 @@ label {
 .cartEmptyText {
   text-align: center;
   padding: 2rem 0;
-  font-size: 13pt;
+  font-size: 9pt;
   color: #666;
 }
 
@@ -379,7 +323,7 @@ label {
 .cartProductPrice {
   font-weight: normal;
   color: var(--secondary-color);
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .cartModalFooter {
@@ -396,7 +340,7 @@ label {
   justify-content: space-between;
   color: var(--secondary-color);
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .cartOrderButton {
@@ -407,7 +351,7 @@ label {
   border: none;
   cursor: pointer;
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 9pt;
   box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
 }
 
@@ -444,7 +388,7 @@ label {
 }
 
 .emptyStateTitle {
-  font-size: 13pt;
+  font-size: 10pt;
   font-weight: normal;
   color: var(--secondary-color);
   margin-bottom: 0.75rem;
@@ -452,13 +396,11 @@ label {
 
 .emptyStateText {
   color: #a0aec0;
-  font-size: 13pt;
+  font-size: 10pt;
 }
-
 .filterBarSection {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2.5rem 1rem;
   color: #FEFEFE;
 }
 
@@ -466,63 +408,58 @@ label {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem;
 }
 
 .filterButton {
   font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
-  padding: 0.6rem 1.2rem;
+  position: relative;
   border-radius: 9999px;
-  font-weight: normal;
   border: none;
   cursor: pointer;
+  padding: 10px 20px;
+  background: transparent;
+  color: #FEFEFE;
+  font-weight: 400;
+  transition: all 0.3s ease;
 }
 
-.filterButtonActive {
-  font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
-  background: linear-gradient(
-    to bottom,
-    var(--primary-color),
-    var(--primary-color)
-  );
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  color: #FEFEFE;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
+.filterButton::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 0;
+  height: 2px;
+  background-color: #FEFEFE; 
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.filterButtonActive::after {
+  background-color: transparent;
 }
 
 .filterButtonInactive {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.15),
-    rgba(255, 255, 255, 0.1)
-  );
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  color: #FEFEFE;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+ 
+  opacity: 0.9;
 }
 
 .filterButtonInactive:hover {
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.25),
-    rgba(255, 255, 255, 0.15)
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
   );
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+
 .footerSection {
   background-image: url("/images/footerbg.png");
   background-repeat: no-repeat;
-
   background-position: center center;
-
+  background-size: cover;
   padding: 2rem 1rem;
 }
 
@@ -534,39 +471,18 @@ label {
   justify-content: space-between;
 }
 
-@media (min-width: 768px) {
-  .footerTop {
-    flex-direction: row;
-    align-items: center;
-  }
-  .filterButton{padding:0px !important;}
-}
-
-
 .footerCopyright {
   text-align: center;
-  font-size: 13pt;
+  font-size: 10pt;
   margin-top: 1rem;
   color: rgba(245, 245, 245, 0.8);
 }
-
-@media (min-width: 768px) {
-  .footerCopyright {
-    text-align: right;
-    margin-top: 0;
-  }
-  .filterButtonsContainer{
-    font-size: 9pt;
-}
-.filterButton{padding:0px !important;}
-}
-
 
 .footerSocialIcons {
   display: flex;
   gap: 1.8rem;
   direction: rtl;
-  font-size: 13pt;
+  font-size: 10pt;
 }
 
 .footerSocialIcon {
@@ -584,7 +500,7 @@ label {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--secondary-color);
-  font-size: 13pt;
+  font-size: 10pt;
   text-align: center;
   color: rgba(245, 245, 245, 0.7);
 }
@@ -601,7 +517,7 @@ label {
   padding: 0.85rem 1rem 0.85rem 2.8rem;
   border: 2px solid var(--secondary-color);
   border-radius: 9999px;
-  font-size: 13pt;
+  font-size: 9pt;
   background-color: var(--bg-light);
   color: var(--text-dark);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -619,7 +535,7 @@ label {
   top: 50%;
   transform: translateY(-50%);
   color: var(--secondary-color);
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .heroImageSection {
@@ -632,26 +548,18 @@ label {
 .container {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 0 1.5rem;
 }
 
 .heroTitle {
   font-weight: normal;
   margin-bottom: 1.2rem;
-  font-size: 13pt;
+  font-size: 9pt;
   color: var(--secondary-color);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-@media (min-width: 768px) {
-  .heroTitle {
-    font-size: 13pt;
-  }
-  .filterButton{padding:0px !important;}
-}
-
 .heroDescription {
-  font-size: 13pt;
+  font-size: 9pt;
   margin-bottom: 2.5rem;
   color: rgba(245, 245, 245, 0.9);
 }
@@ -666,7 +574,7 @@ label {
   display: inline-block;
   text-decoration: none;
   border: none;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .heroButton:hover {
@@ -683,7 +591,7 @@ label {
   border-radius: 0.5rem;
   font-weight: normal;
   cursor: pointer;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .langBtn:hover {
@@ -712,7 +620,7 @@ label {
     rgba(255, 255, 255, 0.25),
     rgba(255, 255, 255, 0.15)
   );
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(15px);
   border-radius: 1.5rem;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
@@ -720,26 +628,20 @@ label {
   max-width: 1000px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   font-family: "Noto Kufi Arabic", Arial, sans-serif;
   max-height: 90vh;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-@media (min-width: 768px) {
-  .modal-container {
-    flex-direction: row;
-  }
-  .filterButton{padding:0px !important;}
 }
 
 .modal-close-btn {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 13pt;
-  font-weight: normal;
+  font-size: 12pt;
+  font-weight: bold;
   color: var(--primary-color);
   background: linear-gradient(
     to bottom,
@@ -773,22 +675,19 @@ label {
 }
 
 .modal-image-section {
-  background: #f7f7f7;
+  background-color: rgba(84, 79, 79, 0.6);
   width: 100%;
   min-height: 250px;
-}
-
-@media (min-width: 768px) {
-  .modal-image-section {
-    width: 50%;
-  }
-  .filterButton{padding:0px !important;}
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  overflow: hidden;
 }
 
 .modal-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .modal-details {
@@ -797,18 +696,11 @@ label {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  overflow-y: auto;
-}
-
-@media (min-width: 768px) {
-  .modal-details {
-    width: 50%;
-  }
-  .filterButton{padding:0px !important;}
+  background-color: rgba(84, 79, 79, 0.6);
 }
 
 .modal-title {
-  font-size: 13pt;
+  font-size: 11pt;
   font-weight: normal;
   color: var(--primary-color);
   margin-bottom: 1rem;
@@ -816,14 +708,14 @@ label {
 }
 
 .modal-type {
-  font-size: 13pt;
-  color: #FEFEFE;
+  font-size: 9pt;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
   font-weight: normal;
 }
 
 .modal-description {
-  font-size: 13pt;
+  font-size: 9pt;
   color: #444;
   line-height: 1.7;
   margin-bottom: 1.5rem;
@@ -854,28 +746,26 @@ label {
 .modal-size-name {
   font-weight: normal;
   color: black;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
-.modal-price-group {
-  text-align: right;
-}
+.modal-price-group { text-align: right; }
 
 .modal-offer-price {
   color: #e63946;
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 9pt;
   display: block;
 }
 
 .modal-price {
-  font-size: 13pt;
+  font-size: 9pt;
   color: black;
 }
 
 .modal-price-old {
   text-decoration: line-through;
-  font-size: 13pt;
+  font-size: 9pt;
   color: #bababa;
 }
 
@@ -884,7 +774,7 @@ label {
   color: #FEFEFE;
   text-align: center;
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 9pt;
   padding: 0.9rem;
   border-radius: 0.75rem;
   margin-top: 1.5rem;
@@ -895,7 +785,6 @@ label {
 .modal-single-price:hover {
   background: linear-gradient(90deg, #40cc00, #85cc00);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(81, 255, 0, 0.5);
 }
 
 .card {
@@ -904,13 +793,12 @@ label {
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
   padding: 1.5rem;
   text-align: center;
-  border: 1px solid #eee;
 }
 
 .card img {
   border-radius: 20pt;
-  width: 130px;
-  height: 130px;
+  width: 1500px;
+  height: 150px;
   object-fit: cover;
   margin: 0 auto 1.2rem;
 }
@@ -921,7 +809,7 @@ label {
   border-radius: 2.5rem;
   padding: 0.6rem 1.8rem;
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 10pt;
   border: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -932,21 +820,13 @@ label {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-.menu-item-description,
-.modal-description,
-.aboutTextContainer,
-.contactTitle,
-.contactSubtitle,
-.menu-card p,
-.menu-card .price {
+.menu-item-description, .modal-description, .aboutTextContainer,
+.contactTitle, .contactSubtitle, .menu-card p, .menu-card .price {
   color: var(--text-light) !important;
 }
 
-.menu-item-title,
-.modal-title,
-.aboutTitle,
-.menu-card h3,
-.menu-card .offer-price {
+.menu-item-title, .modal-title, .aboutTitle,
+.menu-card h3, .menu-card .offer-price {
   color: var(--secondary-color) !important;
 }
 
@@ -960,11 +840,10 @@ label {
   backdrop-filter: blur(12px);
   border-radius: 1.25rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  padding: 1.8rem;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .menu-card:hover {
@@ -979,16 +858,25 @@ label {
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-.menu-card img {
-  width: 240px;
-  height: 230px;
+.menu-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 20pt;
+}
+
+.menu-card img,
+.menu-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
   border-radius: 20pt;
 }
 
 .menu-card h3 {
   margin-top: 1.2rem;
-  font-size: 13pt;
+  font-size: 12pt;
   font-weight: normal;
   color: var(--secondary-color);
   text-align: center;
@@ -997,7 +885,7 @@ label {
 
 .menu-card p {
   margin-top: 0.7rem;
-  font-size: 8pt;
+  font-size: 9pt;
   color: var(--text-light);
   text-align: center;
   line-height: 1.5;
@@ -1012,13 +900,13 @@ label {
   margin-top: 1rem;
   text-align: center;
   color: var(--text-light);
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .menu-card .offer-price {
   color: var(--secondary-color);
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 9pt;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -1030,7 +918,7 @@ label {
   border-radius: 9999px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   font-weight: normal;
-  font-size: 13pt;
+  font-size: 12pt;
   border: none;
 }
 
@@ -1047,20 +935,6 @@ label {
   padding: 2rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
-}
-
-@media (min-width: 640px) {
-  .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .filterButton{padding:0px !important;}
-}
-
-@media (min-width: 1024px) {
-  .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .filterButton{padding:0px !important;}
 }
 
 .menu-item {
@@ -1094,7 +968,7 @@ label {
 }
 
 .menu-item-title {
-  font-size: 13pt;
+  font-size: 10pt;
   font-weight: normal;
   margin-bottom: 0.7rem;
   color: var(--secondary-color);
@@ -1111,7 +985,7 @@ label {
 
 .menu-item-category {
   color: #a0aec0;
-  font-size: 13pt;
+  font-size: 9pt;
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1129,13 +1003,13 @@ label {
 .menu-item-price {
   font-weight: normal;
   color: var(--text-light);
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .menu-item-offer-price {
   font-weight: normal;
   color: #e63946;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .menu-item-button {
@@ -1148,7 +1022,7 @@ label {
   display: inline-block;
   text-align: center;
   border: none;
-  font-size: 13pt;
+  font-size: 9pt;
 }
 
 .menu-item-button:hover {
@@ -1159,4 +1033,330 @@ label {
 
 .force-font * {
   font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 767px) {
+/*   body, p, span, div, button, input, textarea, label,
+  .header-title, .desktop-nav .nav-link, .lang-btn, .mobile-nav-link,
+  .aboutTitle, .aboutTextContainer, .contactTitle, .contactSubtitle,
+  .cartOpenButton, .cartCloseButton, .cartEmptyText, .cartProductPrice,
+  .cartTotalPrice, .cartOrderButton, .emptyStateTitle, .emptyStateText,
+  .filterButton, .footerCopyright, .footerSocialIcons, .footerBottom,
+  .searchInput, .searchIcon, .heroTitle, .heroDescription, .heroButton,
+  .langBtn, .modal-close-btn, .modal-title, .modal-type, .modal-description,
+  .modal-size-name, .modal-offer-price, .modal-price, .modal-price-old,
+  .modal-single-price, .button-primary, .menu-card p, .menu-card .price,
+  .menu-card .offer-price, .menu-item-title, .menu-item-description,
+  .menu-item-category, .menu-item-price, .menu-item-offer-price {
+    font-size: 9pt ;
+  } */
+
+  .header-bg {
+    height: 150px;
+    background-size: cover;
+  }
+  .logo-img {
+    max-height: 250px;
+    width: auto;
+  }
+
+  .filterBarSection {
+    position: static;
+    transform: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    z-index: auto;
+    box-shadow: none;
+    margin-top: 1.5rem;
+  }
+
+  .filterBarSection button {
+    writing-mode: horizontal-tb;
+    text-orientation: unset;
+    margin: 0.2rem;
+    border-radius: 9999px;
+    color: var(--text-light);
+    font-size: 9pt;
+  }
+
+  .filterBarSection button:hover {
+    background: #003824b5;
+    transform: translateY(-2px);
+  }
+
+  .filterBarSection button.active {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: 9999px;
+    padding: 0.6rem 1.2rem;
+  }
+
+  main, .container {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 1rem;
+  }
+  .footerSection {
+    background-size: cover;
+  }
+
+  .menu-image-wrapper { aspect-ratio: 1 / 1; }
+
+  .menu-item-image { height: 10rem; }
+
+  .cartOpenButton {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.8rem;
+  }
+
+  .modal-container {
+    flex-direction: column;
+    max-height: 95vh;
+  }
+  .modal-image-section {
+    width: 100%;
+    min-height: 200px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .modal-details {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .menu-grid {
+    grid-template-columns: repeat(3,1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .filterButtonsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    justify-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .filterButton {
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+ 
+
+  .footerTop {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .footerCopyright {
+    text-align: right;
+    margin-top: 0;
+  }
+
+  .filterButtonsContainer {
+    font-size: 9pt;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+  }
+
+  .filterButton { padding: 0.6rem 1.2rem !important; }
+
+  .heroTitle {
+    font-size: 9pt;
+  }
+
+  .modal-container { flex-direction: row; }
+
+  .modal-image-section { width: 50%; }
+
+  .modal-details { width: 50%; }
+
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .filterBarSection {
+    position: static;
+    transform: none;
+    display: block;
+    width: auto;
+    padding: 1rem 0.5rem;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    margin-top: 0;
+  }
+
+  .filterBarSection button {
+    writing-mode: horizontal-tb;
+    text-orientation: unset;
+    background: none;
+    border: none;
+    color: #FEFEFE;
+    font-weight: normal;
+    font-size: 9pt;
+    padding: 0.6rem 1.2rem;
+    margin: 0.4rem 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filterBarSection button:hover {
+    background: none;
+    color: var(--highlight-color);
+    transform: translateY(-2px);
+  }
+
+  .filterBarSection button.active {
+    background: linear-gradient(
+      to bottom,
+      var(--primary-color),
+      var(--primary-color)
+    );
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    color: #FEFEFE;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    border-radius: 9999px; 
+  }
+
+  main, .container {
+    margin-left: auto; 
+    margin-top: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .filterButtonsContainer {
+    grid-template-columns: repeat(5, minmax(0, 1fr)); 
+  }
+}
+
+.filterButton {
+  font-family: "Noto Kufi Arabic", Arial, sans-serif !important;
+  border-radius: 9999px;
+  font-weight: normal;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+  padding: 6px 14px;
+}
+
+.filterButtonInactive::after,
+.filterButton::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: transparent;
+  border-radius: 9999px;
+}
+
+
+
+
+/* =======================
+   Custom modifications
+   ======================= */
+
+/* الأزرار */
+button,
+.button-primary,
+.heroButton,
+.cartOrderButton,
+.menu-item-button,
+.menu-card button {
+  background-color: var(--secondary-color) !important;
+  color: var(--highlight-color) !important;
+  border: 2px solid var(--highlight-color);
+  transition: all 0.3s ease;
+}
+
+button:hover,
+.button-primary:hover,
+.heroButton:hover,
+.cartOrderButton:hover,
+.menu-item-button:hover,
+.menu-card button:hover {
+  background-color: var(--highlight-color) !important;
+  color: var(--secondary-color) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 56, 36, 0.3);
+}
+
+/* زرار إظهار/إخفاء الفلاتر */
+.filterToggleBtn {
+  display: none;
+  background: var(--secondary-color);
+  color: var(--highlight-color);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: 2px solid var(--highlight-color);
+  font-weight: bold;
+}
+
+.filterToggleBtn:hover {
+  background: var(--highlight-color);
+  color: var(--secondary-color);
+}
+
+/* أزرار الفلاتر */
+.filterButton {
+  background: transparent;
+  color: var(--highlight-color);
+  border: 1px solid var(--highlight-color);
+}
+
+.filterButton.active,
+.filterButton:focus {
+  background: transparent;
+  color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(0, 56, 36, 0.3);
+}
+
+/* موبايل: الفلاتر مخفية بزرار */
+@media (max-width: 767px) {
+  .filterToggleBtn {
+    display: inline-block;
+  }
+
+  .filterButtonsContainer {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filterButtonsContainer.show {
+    display: flex;
+  }
+}
+
+
+
+@media (max-width: 767px) {
+  .filterToggleBtn {
+    margin-right: auto;
+    margin-left: 0;
+    display: block;
+  }
 }

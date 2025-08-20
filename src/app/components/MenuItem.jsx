@@ -22,49 +22,45 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
 
   return (
     <div className="menu-card">
-      {/* صورة المنتج */}
-      <img
-        src={item.image || "/images/food.jpg"}
-        alt={displayName}
-        onError={(e) => (e.target.src = "/images/food.jpg")}
-        className="w-40 h-40 object-cover rounded-full shadow-md"
-      />
+      <div className="menu-image-wrapper">
+        <img
+          src={item.image || "/images/food.jpg"}
+          alt={displayName}
+          onError={(e) => (e.target.src = "/images/food.jpg")}
+          className="menu-image"
+        />
+      </div>
 
-      {/* اسم المنتج */}
-      <h3 className="mt-4 text-lg font-bold text-[#FFD166] text-center force-font">
-        {displayName}
-      </h3>
+      <h3 className="menu-title">{displayName}</h3>
 
-      {/* التصنيف */}
       {item.category && (
-        <p className="mt-1 text-xs text-[#F5F5F5] text-center opacity-75">
-          {locale === "ar" ? item.category.name_ar : item.category.name_en || item.category.name_ar}
+        <p className="menu-category">
+          {locale === "ar"
+            ? item.category.name_ar
+            : item.category.name_en || item.category.name_ar}
         </p>
       )}
 
-      {/* الوصف */}
-      <p className="mt-2 text-sm text-[#F5F5F5] text-center line-clamp-2">
+      <p className="menu-description">
         {stripHtml(displayDescription) || ""}
       </p>
 
-      {/* السعر */}
       {!hidePrice && (item.price || firstSize?.price) && (
-        <div className="mt-3 text-center">
+        <div className="menu-price-container">
           {hasOfferPrice && firstSize?.offer_price && (
-            <div className="text-[#FFD166] font-semibold text-lg">
+            <div className="menu-offer-price">
               {firstSize.offer_price} {t("currency")}
             </div>
           )}
-          <div className="text-[#F5F5F5]">
+          <div className={`menu-price ${hasOfferPrice ? "menu-price-old" : ""}`}>
             {t("priceLabel")}: {firstSize?.price || item.price} {t("currency")}
           </div>
         </div>
       )}
 
-      {/* زر التفاصيل */}
       <button
         onClick={() => onOpenDetails(item)}
-        className="mt-4 bg-[#045242] text-white px-5 py-2 rounded-full shadow hover:bg-[#012921] transition"
+        className="menu-details-btn"
       >
         {t("detailsbtn")}
       </button>

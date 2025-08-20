@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "./Header";
-import Hero from "./Hero";
 import FilterBar from "./FilterBar";
 import MenuGrid from "./MenuGrid";
 import { useTranslations, useLocale } from "next-intl";
@@ -17,12 +15,15 @@ function ItemDetailsModal({ item, onClose }) {
     const onEsc = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
 
-    const oldOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", onEsc);
-      document.body.style.overflow = oldOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
     };
   }, [item, onClose]);
 
@@ -37,7 +38,7 @@ function ItemDetailsModal({ item, onClose }) {
 
   function stripHtml(html) {
     if (!html) return "";
-    return html.replace(/<[^>]*>/g, ""); // يشيل كل الوسوم
+    return html.replace(/<[^>]*>/g, ""); 
   }
   console.log("look: " + displayDescription);
   return (
@@ -48,7 +49,6 @@ function ItemDetailsModal({ item, onClose }) {
       aria-modal="true"
     >
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        {/* زر الإغلاق */}
         <button
           type="button"
           onClick={onClose}
@@ -57,77 +57,74 @@ function ItemDetailsModal({ item, onClose }) {
         >
           &times;
         </button>
+       
+      <div className="modal-image-section">
+        <img
+          src={item.image || "/images/food.jpg"}
+          alt={displayName}
+          className="modal-image"
+          onError={(e) => {
+            e.currentTarget.src = "/images/food.jpg";
+          }}
+        />
+      </div>
 
-        {/* صورة المنتج */}
-        <div className="modal-image-section">
-          <img
-            src={item.image || "/images/food.jpg"}
-            alt={displayName}
-            className="modal-image"
-            onError={(e) => {
-              e.currentTarget.src = "/images/food.jpg";
-            }}
-          />
-        </div>
+      <div className="modal-details">
+        <h2 className="modal-title">{displayName}</h2>
 
-        {/* تفاصيل المنتج */}
-        <div className="modal-details">
-          <h2 className="modal-title">{displayName}</h2>
+        {item.category && (
+          <p className="modal-type">
+            {locale === "ar" ? "التصنيف:" : "Category:"}{" "}
+            {locale === "ar"
+              ? item.category.name_ar
+              : item.category.name_en || item.category.name_ar}
+          </p>
+        )}
 
-          {item.category && (
-            <p className="modal-type">
-              {locale === "ar" ? "التصنيف:" : "Category:"} {locale === "ar" ? item.category.name_ar : item.category.name_en || item.category.name_ar}
-            </p>
-          )}
+        {displayType && (
+          <p className="modal-type">
+            {locale === "ar" ? "النوع:" : "Type:"} {displayType}
+          </p>
+        )}
 
-          {displayType && (
-            <p className="modal-type">
-              {locale === "ar" ? "النوع:" : "Type:"} {displayType}
-            </p>
-          )}
+        {displayDescription && (
+          <p className="modal-description">{stripHtml(displayDescription)}</p>
+        )}
 
-          {displayDescription && (
-            <p className="modal-description">{stripHtml(displayDescription)}</p>
-          )}
-
-          {/* الأسعار بالأحجام */}
-          {item.fullData?.sizes?.length > 0 && (
-            <div className="modal-sizes-list">
-              {item.fullData.sizes.map((size, index) => (
-                <div key={index} className="modal-size-item ">
-                  <span className="modal-size-name">
-                    {locale === "ar"
-                      ? size.size_ar
-                      : size.size_en || size.size_ar}
-                  </span>
-                  <div className="modal-price-group">
-                    {size.offer_price && (
-                      <span className="modal-offer-price">
-                        {size.offer_price} {t("currency")}
-                      </span>
-                    )}
-                    <span
-                      className={`modal-price ${
-                        size.offer_price ? "modal-price-old" : ""
-                      }`}
-                    >
-                      {size.price} {t("currency")}
+        {item.fullData?.sizes?.length > 0 && (
+          <div className="modal-sizes-list">
+            {item.fullData.sizes.map((size, index) => (
+              <div key={index} className="modal-size-item ">
+                <span className="modal-size-name">
+                  {locale === "ar" ? size.size_ar : size.size_en || size.size_ar}
+                </span>
+                <div className="modal-price-group">
+                  {size.offer_price && (
+                    <span className="modal-offer-price">
+                      {size.offer_price} {t("currency")}
                     </span>
-                  </div>
+                  )}
+                  <span
+                    className={`modal-price ${
+                      size.offer_price ? "modal-price-old" : ""
+                    }`}
+                  >
+                    {size.price} {t("currency")}
+                  </span>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
+        )}
 
-          {/* السعر الافتراضي إذا ما في أحجام */}
-          {item.price && !item.fullData?.sizes && (
-            <div className="modal-single-price">
-              {item.price} {t("currency")}
-            </div>
-          )}
-        </div>
+        {item.price && !item.fullData?.sizes && (
+          <div className="modal-single-price">
+            {item.price} {t("currency")}
+          </div>
+        )}
       </div>
     </div>
+      </div>
   );
 }
 
@@ -145,7 +142,7 @@ export default function MainContent() {
 
   return (
     <>
-      <main className="min-h-screen container mx-auto px-4 py-8">
+      <main className="min-h-screen container mx-auto ">
         <FilterBar filter={filter} setFilter={setFilter} />
         <MenuGrid
           onOpenDetails={openDetails}

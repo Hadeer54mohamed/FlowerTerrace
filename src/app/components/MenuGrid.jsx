@@ -44,19 +44,15 @@ export default function MenuGrid({
     if (!activeFilter || activeFilter === "all") return true;
 
     if (typeof activeFilter === "object") {
-      // التصفية حسب التصنيف
       if (p.category) {
-        // استخدام id التصنيف أولاً للأداء الأفضل
         if (activeFilter.id && p.category.id === activeFilter.id) {
           return true;
         }
-        // استخدام الاسم كبديل
         const byAr = p.category.name_ar === activeFilter.name_ar;
         const byEn = p.category.name_en === activeFilter.name_en;
         return byAr || byEn;
       }
       
-      // الاحتفاظ بالتصفية حسب الوصف للتوافق مع الكود القديم
       const byAr =
         p.description &&
         activeFilter.name_ar &&
@@ -76,7 +72,8 @@ export default function MenuGrid({
     return <EmptyState />;
   }
 
-  return (<div className="container text-center">
+  return (
+  <div className="container text-center">
   <div className="row">
     {filteredProducts.map((item) => (
       <div key={item.id} className="col-md-4 mb-4">

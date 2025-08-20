@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="header-bg  top-0   text-white z-50">
-      <div className=" mx-auto  items-center">
+     {/*  <div className=" mx-auto  items-center">
         <nav
           className={`desktop-nav hidden md:flex items-center gap-8 ${
             locale === "ar" ? "flex-row-reverse" : "flex-row"
@@ -49,7 +49,7 @@ export default function Header() {
             )}
           </button>
         </div>
-      </div>
+      </div> */}
 
       <AnimatePresence>
         {isOpen && (
@@ -78,7 +78,7 @@ export default function Header() {
                 </button>
               </div>
 
-              <nav
+             {/*  <nav
                 className={`mobile-nav  gap-5 p-6 text-lg font-medium ${
                   locale === "ar"
                     ? "items-end text-right"
@@ -109,7 +109,7 @@ export default function Header() {
                   <FiPhone className="text-xl" />
                   {t("contact")}
                 </Link>
-              </nav>
+              </nav> */}
             </motion.div>
           </>
         )}
