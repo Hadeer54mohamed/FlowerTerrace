@@ -71,7 +71,7 @@ export default function FilterBar({ filter, setFilter }) {
               <button
                 key={`${idx}-${label}`}
                 type="button"
-                className={`filterButton filterButtonInactive`}
+                className={`filterButton ${isActive ? "filterButtonActive" : "filterButtonInactive"}`}
                 onClick={() =>
                   setFilter({
                     id: cat.id,
@@ -93,5 +93,4 @@ export default function FilterBar({ filter, setFilter }) {
       </div>
     </section>
   );
-  
 }

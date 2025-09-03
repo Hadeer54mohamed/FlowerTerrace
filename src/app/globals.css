@@ -6,11 +6,11 @@
 
 :root {
   --primary-color: #003824;
-  --secondary-color: #ffffff;     /* الأزرار بيضا */
+  --secondary-color: #ffffff;    
   --accent-color: #012921;
   --accent-dark: #002011;
   --accent-darker: #00150a;
-  --highlight-color: #003824;     /* النصوص أخضر غامق */
+  --highlight-color: #003824;     
   --text-light: #f5f5f5;
   --text-dark: #1f2937;
   --bg-light: #fffaf5;
@@ -700,7 +700,7 @@ p, span, div, button, input, textarea, label,
 }
 
 .modal-title {
-  font-size: 11pt;
+  font-size: 14pt;
   font-weight: normal;
   color: var(--primary-color);
   margin-bottom: 1rem;
@@ -708,14 +708,14 @@ p, span, div, button, input, textarea, label,
 }
 
 .modal-type {
-  font-size: 9pt;
+  font-size: 12pt;
   color: var(--secondary-color);
   margin-bottom: 1rem;
   font-weight: normal;
 }
 
 .modal-description {
-  font-size: 9pt;
+  font-size: 12pt;
   color: #444;
   line-height: 1.7;
   margin-bottom: 1.5rem;
@@ -746,7 +746,7 @@ p, span, div, button, input, textarea, label,
 .modal-size-name {
   font-weight: normal;
   color: black;
-  font-size: 9pt;
+  font-size: 11pt;
 }
 
 .modal-price-group { text-align: right; }
@@ -759,7 +759,7 @@ p, span, div, button, input, textarea, label,
 }
 
 .modal-price {
-  font-size: 9pt;
+  font-size: 11pt;
   color: black;
 }
 
@@ -827,7 +827,7 @@ p, span, div, button, input, textarea, label,
 
 .menu-item-title, .modal-title, .aboutTitle,
 .menu-card h3, .menu-card .offer-price {
-  color: var(--secondary-color) !important;
+  color: var(--primary-color) !important;
 }
 
 .menu-card {
@@ -1081,7 +1081,6 @@ p, span, div, button, input, textarea, label,
   .filterBarSection button {
     writing-mode: horizontal-tb;
     text-orientation: unset;
-    margin: 0.2rem;
     border-radius: 9999px;
     color: var(--text-light);
     font-size: 9pt;
