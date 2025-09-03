@@ -8,6 +8,9 @@ export default function MenuGrid({
   onOpenDetails,
   hidePriceOnCard,
   activeFilter,
+  currentPage = 1,
+  itemsPerPage = 9,
+  onTotalItemsChange,
 }) {
   const t = useTranslations("");
   const locale = useLocale();
@@ -52,7 +55,7 @@ export default function MenuGrid({
         const byEn = p.category.name_en === activeFilter.name_en;
         return byAr || byEn;
       }
-      
+
       const byAr =
         p.description &&
         activeFilter.name_ar &&
@@ -68,24 +71,33 @@ export default function MenuGrid({
     return desc === String(activeFilter).toLowerCase();
   });
 
+  // إرسال عدد العناصر الكلي للمكون الأب
+  if (onTotalItemsChange && filteredProducts) {
+    onTotalItemsChange(filteredProducts.length);
+  }
+
   if (!filteredProducts || filteredProducts.length === 0) {
     return <EmptyState />;
   }
 
-  return (
-  <div className="container text-center">
-  <div className="row">
-    {filteredProducts.map((item) => (
-      <div key={item.id} className="col-md-4 mb-4">
-        <MenuItem
-          item={item}
-          onOpenDetails={onOpenDetails}
-          hidePrice={hidePriceOnCard}
-        />
-      </div>
-    ))}
-  </div>
-</div>
+  // حساب عناصر الصفحة الحالية
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
+  return (
+    <div className="container text-center">
+      <div className="row">
+        {paginatedProducts.map((item) => (
+          <div key={item.id} className="col-md-4 mb-4">
+            <MenuItem
+              item={item}
+              onOpenDetails={onOpenDetails}
+              hidePrice={hidePriceOnCard}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

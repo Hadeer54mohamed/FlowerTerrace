@@ -42,5 +42,12 @@
     "alt": "Hands icon indicating no search results",
     "title": "We couldn't find what you're looking for",
     "description": "Try different keywords or browse another category"
+  },
+  "Pagination": {
+    "showing": "Showing",
+    "of": "of",
+    "items": "items",
+    "previous": "Previous",
+    "next": "Next"
   }
 }
