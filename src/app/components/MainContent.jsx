@@ -6,7 +6,60 @@ import MenuGrid from "./MenuGrid";
 import Pagination from "./Pagination";
 import { useTranslations, useLocale } from "next-intl";
 
-function ItemDetailsModal({ item, onClose }) {
+function ImageModal({ imageUrl, imageName, onClose }) {
+  useEffect(() => {
+    if (!imageUrl) return;
+
+    const onEsc = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [imageUrl, onClose]);
+
+  if (!imageUrl) return null;
+
+  return (
+    <div
+      className="image-modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="image-modal-container"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="image-modal-close-btn"
+          aria-label="إغلاق"
+        >
+          &times;
+        </button>
+        <img
+          src={imageUrl}
+          alt={imageName || "صورة"}
+          className="image-modal-image"
+          onError={(e) => {
+            e.currentTarget.src = "/images/food.jpg";
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function ItemDetailsModal({ item, onClose, onImageClick }) {
   const t = useTranslations("");
   const locale = useLocale();
 
@@ -41,7 +94,7 @@ function ItemDetailsModal({ item, onClose }) {
     if (!html) return "";
     return html.replace(/<[^>]*>/g, "");
   }
-  console.log("look: " + displayDescription);
+
   return (
     <div
       className="modal-backdrop"
@@ -96,11 +149,38 @@ function ItemDetailsModal({ item, onClose }) {
             <div className="modal-sizes-list">
               {item.fullData.sizes.map((size, index) => (
                 <div key={index} className="modal-size-item ">
-                  <span className="modal-size-name">
-                    {locale === "ar"
-                      ? size.size_ar
-                      : size.size_en || size.size_ar}
-                  </span>
+                  <div className="modal-size-info">
+                    {item.fullData?.types?.[0]?.image_url && (
+                      <img
+                        src={item.fullData.types[0].image_url}
+                        alt={
+                          locale === "ar"
+                            ? item.fullData.types[0].name_ar
+                            : item.fullData.types[0].name_en ||
+                              item.fullData.types[0].name_ar
+                        }
+                        className="modal-size-type-image"
+                        onClick={() =>
+                          onImageClick({
+                            url: item.fullData.types[0].image_url,
+                            name:
+                              locale === "ar"
+                                ? item.fullData.types[0].name_ar
+                                : item.fullData.types[0].name_en ||
+                                  item.fullData.types[0].name_ar,
+                          })
+                        }
+                        onError={(e) => {
+                          e.currentTarget.src = "/images/food.jpg";
+                        }}
+                      />
+                    )}
+                    <span className="modal-size-name">
+                      {locale === "ar"
+                        ? size.size_ar
+                        : size.size_en || size.size_ar}
+                    </span>
+                  </div>
                   <div className="modal-price-group">
                     {size.offer_price && (
                       <span className="modal-offer-price">
@@ -133,6 +213,7 @@ function ItemDetailsModal({ item, onClose }) {
 
 export default function MainContent() {
   const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -190,7 +271,18 @@ export default function MainContent() {
           />
         )}
       </main>
-      <ItemDetailsModal item={selectedItem} onClose={closeDetails} />
+      <ItemDetailsModal
+        item={selectedItem}
+        onClose={closeDetails}
+        onImageClick={setSelectedImage}
+      />
+      {selectedImage && (
+        <ImageModal
+          imageUrl={selectedImage.url}
+          imageName={selectedImage.name}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </>
   );
 }

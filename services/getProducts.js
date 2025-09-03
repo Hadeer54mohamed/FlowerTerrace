@@ -24,8 +24,6 @@ export async function getProducts() {
     throw new Error("فشل في تحميل المنيو");
   }
 
-  console.log("Raw data from API:", data);
-
   // تحويل البيانات لتتوافق مع الكود الحالي
   const transformedData = data.map((product) => {
     // الحصول على أول نوع وأول حجم
@@ -48,11 +46,13 @@ export async function getProducts() {
       size_en: firstSize ? firstSize.size_en : null,
       type: firstType ? firstType.name_ar : null,
       type_en: firstType ? firstType.name_en : null,
-      category: product.category ? {
-        id: product.category.id,
-        name_ar: product.category.name_ar,
-        name_en: product.category.name_en
-      } : null,
+      category: product.category
+        ? {
+            id: product.category.id,
+            name_ar: product.category.name_ar,
+            name_en: product.category.name_en,
+          }
+        : null,
       created_at: product.created_at,
       // حفظ البيانات الكاملة للاستخدام في النافذة المنبثقة
       fullData: {
@@ -62,7 +62,6 @@ export async function getProducts() {
     };
   });
 
-  console.log("Transformed data:", transformedData);
   return transformedData;
 }
 
