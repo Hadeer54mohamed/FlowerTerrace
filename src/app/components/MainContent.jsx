@@ -217,7 +217,7 @@ export default function MainContent() {
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 9; // عدد ثابت من العناصر في كل صفحة
+  const itemsPerPage = 9; 
 
   const openDetails = (item) => {
     setSelectedItem(item);
@@ -229,20 +229,17 @@ export default function MainContent() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // التمرير لأعلى عند تغيير الصفحة
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleTotalItemsChange = (count) => {
     setTotalItems(count);
-    // إعادة تعيين الصفحة للأولى إذا كانت الصفحة الحالية خارج النطاق
     const totalPages = Math.ceil(count / itemsPerPage);
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(1);
     }
   };
 
-  // إعادة تعيين الصفحة للأولى عند تغيير الفلتر
   useEffect(() => {
     setCurrentPage(1);
   }, [filter]);

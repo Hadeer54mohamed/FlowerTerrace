@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaSnapchatGhost,
+  FaTiktok,
+} from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
 const Footer = () => {
@@ -16,14 +21,37 @@ const Footer = () => {
           </div>
 
           <div className="footerSocialIcons">
-            <a href="#" className="footerSocialIcon">
+            <a
+              href="https://www.facebook.com/share/1E749fA751/"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaFacebookF />
             </a>
-            <a href="#" className="footerSocialIcon">
-              <FaTwitter />
-            </a>
-            <a href="#" className="footerSocialIcon">
+            <a
+              href="https://www.instagram.com/flowerterrace_cafe?igsh=Z3ByejFraHBvb3ow"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram />
+            </a>
+            <a
+              href="https://www.snapchat.com/add/flowerterrace?share_id=nTbgRWSBkFc&locale=ar-AE"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaSnapchatGhost />
+            </a>
+            <a
+              href="https://www.tiktok.com/@flowerterracecafe?_t=ZS-8yckLdImuHA&_r=1"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTiktok />
             </a>
           </div>
         </div>

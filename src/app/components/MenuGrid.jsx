@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import MenuItem from "./MenuItem";
 import EmptyState from "./EmptyState";
 import { useQuery } from "@tanstack/react-query";
@@ -14,6 +15,7 @@ export default function MenuGrid({
 }) {
   const t = useTranslations("");
   const locale = useLocale();
+
   const {
     data: products,
     isLoading,
@@ -24,24 +26,6 @@ export default function MenuGrid({
     retry: 1,
     refetchOnWindowFocus: false,
   });
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-8">
-        <div className="text-lg">جاري التحميل...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center py-8">
-        <div className="text-red-500">
-          حدث خطأ في تحميل المنتجات: {error.message}
-        </div>
-      </div>
-    );
-  }
 
   const filteredProducts = (products || []).filter((p) => {
     if (!activeFilter || activeFilter === "all") return true;
@@ -71,16 +55,34 @@ export default function MenuGrid({
     return desc === String(activeFilter).toLowerCase();
   });
 
-  // إرسال عدد العناصر الكلي للمكون الأب
-  if (onTotalItemsChange && filteredProducts) {
-    onTotalItemsChange(filteredProducts.length);
+  useEffect(() => {
+    if (onTotalItemsChange) {
+      onTotalItemsChange(filteredProducts.length);
+    }
+  }, [filteredProducts, onTotalItemsChange]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="text-lg">جاري التحميل...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="text-red-500">
+          حدث خطأ في تحميل المنتجات: {error.message}
+        </div>
+      </div>
+    );
   }
 
   if (!filteredProducts || filteredProducts.length === 0) {
     return <EmptyState />;
   }
 
-  // حساب عناصر الصفحة الحالية
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
