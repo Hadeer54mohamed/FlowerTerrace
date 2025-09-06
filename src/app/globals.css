@@ -489,8 +489,9 @@ label,
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 12px 16px;
+  padding: 12px 8px;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1),
@@ -503,6 +504,9 @@ label,
   position: relative;
   overflow: hidden;
   min-height: 60px;
+
+  min-width: 80px;
+
   flex-shrink: 0;
 }
 
@@ -574,10 +578,14 @@ label,
 }
 
 .filter-text {
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   flex-shrink: 0;
   line-height: 1.2;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* تأثيرات التحميل */
@@ -1357,9 +1365,13 @@ label,
   .filterBarSection button {
     writing-mode: horizontal-tb;
     text-orientation: unset;
-    border-radius: 9999px;
+    border-radius: 10px;
     color: var(--text-light);
     font-size: 9pt;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
   }
 
   .filterBarSection button:hover {
@@ -1370,20 +1382,25 @@ label,
   .filterBarSection button.active {
     background: var(--secondary-color);
     color: var(--primary-color);
-    border-radius: 9999px;
+    border-radius: 10px;
     padding: 0.6rem 1.2rem;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
   }
 
   /* تحسينات الهاتف المحمول للأزرار المحسنة */
   .enhanced-filter-btn {
     padding: 8px 12px;
     gap: 4px;
-    min-height: 50px;
+    width: 110px;
+    height: 40px;
     font-size: 12px;
   }
 
   .filter-icon {
-    font-size: 20px;
+    font-size: 1rem;
     min-width: 18px;
   }
 
@@ -1453,7 +1470,7 @@ label,
     padding: 1.5rem;
   }
   .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
   }
 
@@ -1534,7 +1551,7 @@ label,
   }
 
   .menu-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
   }
 
@@ -1613,8 +1630,11 @@ label,
   }
 
   .enhanced-filter-btn {
-    padding: 10px 14px;
+    padding: 10px 8px;
     min-height: 55px;
+
+    min-width: 75px;
+
     gap: 5px;
   }
 }
@@ -1636,9 +1656,11 @@ label,
   }
 
   .enhanced-filter-btn {
-    padding: 8px 12px;
+    padding: 8px 6px;
     gap: 4px;
     min-height: 50px;
+
+    min-width: 70px;
   }
 
   .filter-icon {
