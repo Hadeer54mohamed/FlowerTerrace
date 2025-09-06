@@ -72,7 +72,8 @@ export async function getCategories() {
       `
       id,
       name_ar,
-      name_en
+      name_en,
+      image_url
     `
     )
     .order("name_ar");

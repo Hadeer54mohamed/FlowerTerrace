@@ -88,10 +88,10 @@ export default function MenuGrid({
   const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
   return (
-    <div className="container text-center">
-      <div className="row">
+    <div className="menu-grid-container">
+      <div className="menu-grid">
         {paginatedProducts.map((item) => (
-          <div key={item.id} className="col-md-4 mb-4">
+          <div key={item.id} className="menu-grid-item">
             <MenuItem
               item={item}
               onOpenDetails={onOpenDetails}

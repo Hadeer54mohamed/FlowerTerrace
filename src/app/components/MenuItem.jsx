@@ -21,47 +21,48 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
   const firstSize = item.fullData?.sizes?.[0];
 
   return (
-    <div className="menu-card">
-      <div className="menu-image-wrapper">
-        <img
-          src={item.image || "/images/food.jpg"}
-          alt={displayName}
-          onError={(e) => (e.target.src = "/images/food.jpg")}
-          className="menu-image"
-        />
-      </div>
+    <div className="menu-item">
+      <img
+        src={item.image || "/images/food.jpg"}
+        alt={displayName}
+        onError={(e) => (e.target.src = "/images/food.jpg")}
+        className="menu-item-image"
+      />
 
-      <h3 className="menu-title">{displayName}</h3>
+      <h3 className="menu-item-title">{displayName}</h3>
 
       {item.category && (
-        <p className="menu-category">
+        <p className="menu-item-category">
           {locale === "ar"
             ? item.category.name_ar
             : item.category.name_en || item.category.name_ar}
         </p>
       )}
 
-      <p className="menu-description">
+      <div className="menu-item-description">
         {stripHtml(displayDescription) || ""}
-      </p>
+      </div>
 
       {!hidePrice && (item.price || firstSize?.price) && (
-        <div className="menu-price-container">
+        <div className="menu-item-price-container">
           {hasOfferPrice && firstSize?.offer_price && (
-            <div className="menu-offer-price">
+            <div className="menu-item-offer-price">
               {firstSize.offer_price} {t("currency")}
             </div>
           )}
-          <div className={`menu-price ${hasOfferPrice ? "menu-price-old" : ""}`}>
+          <div
+            className={`menu-item-price ${
+              hasOfferPrice ? "menu-price-old" : ""
+            }`}
+          >
             {t("priceLabel")}: {firstSize?.price || item.price} {t("currency")}
           </div>
         </div>
       )}
 
-      <button
-        onClick={() => onOpenDetails(item)}
-        className="menu-details-btn"
-      >
+      <div className="menu-item-spacer"></div>
+
+      <button onClick={() => onOpenDetails(item)} className="menu-item-button">
         {t("detailsbtn")}
       </button>
     </div>
