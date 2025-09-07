@@ -126,7 +126,7 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
             }}
           />
         </div>
-
+        <div className="modal-content">
         <div className="modal-details">
           <h2 className="modal-title">{displayName}</h2>
 
@@ -226,6 +226,7 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

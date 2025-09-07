@@ -88,13 +88,25 @@ label,
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* RTL Adjustments */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 [dir="rtl"] .search-icon {
   right: auto;
   left: 0.75rem;
@@ -655,8 +667,8 @@ label,
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -680,12 +692,12 @@ label,
   max-width: 1000px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
   position: relative;
   font-family: "Noto Kufi Arabic", Arial, sans-serif;
-  max-height: 90vh;
+  max-height: 95vh;
+  min-height: 600px;
 }
 
 .modal-close-btn {
@@ -729,49 +741,118 @@ label,
 .modal-image-section {
   background-color: rgba(84, 79, 79, 0.6);
   width: 100%;
-  height: 100%;
-    border-top-left-radius: 1.5rem;
-  border-top-right-radius: 1.5rem;
+  border-radius: 1.5rem;
+
   overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .modal-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  
+  flex-shrink: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: #2c7a7b #e6f4f1;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.15)
+  );
+  background-color: rgba(84, 79, 79, 0.6);
+
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-height: 90vh;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+   overflow-y: auto;
+  overflow-x: hidden; 
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  font-family: "Noto Kufi Arabic", Arial, sans-serif;
+  max-height: 90vh;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #e6f4f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #2c7a7b;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #285e61;
 }
 
 .modal-details {
-  padding: 2rem;
+  flex: 1; 
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-/*   background-color: rgba(84, 79, 79, 0.6);
- */}
+  justify-content: flex-start;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.1)
+  );
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 1.5rem 1.5rem;
+  animation: slideIn 0.4s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
 
 .modal-title {
-  font-size: 14pt;
-  font-weight: normal;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 18pt;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .modal-type {
-  font-size: 12pt;
-  color: var(--secondary-color);
-  margin-bottom: 1rem;
+  font-size: 14pt;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
   font-weight: normal;
+  text-align: center;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 56, 36, 0.3);
 }
 
 .modal-description {
-  font-size: 12pt;
-  color: #444;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+  font-size: 14pt;
+  color: var(--text-light);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 15px;
 }
 
 .modal-sizes-list {
@@ -785,22 +866,25 @@ label,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 1rem;
-  margin-bottom: 5pt;
-  border-radius: 0.75rem;
-  background: rgba(230, 126, 34, 0.08);
-  border: 1px solid rgba(230, 126, 34, 0.2);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(0, 56, 36, 0.1), rgba(0, 56, 36, 0.05));
+  border: 2px solid rgba(0, 56, 36, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 56, 36, 0.1);
+  transition: all 0.3s ease;
 }
 
 .modal-size-item:hover {
-  background: rgba(230, 126, 34, 0.15);
+  background: linear-gradient(135deg, rgba(0, 56, 36, 0.2), rgba(0, 56, 36, 0.1));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 56, 36, 0.2);
 }
 
 .modal-size-name {
-  font-weight: normal;
-  color: black;
-  font-size: 11pt;
+  font-weight: bold;
+  color: var(--secondary-color);
+  font-size: 13pt;
 }
 
 .modal-price-group {
@@ -815,8 +899,9 @@ label,
 }
 
 .modal-price {
-  font-size: 11pt;
-  color: black;
+  font-size: 13pt;
+  color: var(--secondary-color);
+  font-weight: bold;
 }
 
 .modal-price-old {
@@ -826,21 +911,24 @@ label,
 }
 
 .modal-single-price {
-  background: linear-gradient(90deg, #51ff00, #a6ff00);
-  color: #fefefe;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
   text-align: center;
-  font-weight: normal;
-  font-size: 9pt;
-  padding: 0.9rem;
-  border-radius: 0.75rem;
-  margin-top: 1.5rem;
-  box-shadow: 0 6px 15px rgba(81, 255, 0, 0.4);
+  font-weight: bold;
+  font-size: 14pt;
+  padding: 1.2rem 2rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 56, 36, 0.4);
   cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .modal-single-price:hover {
-  background: linear-gradient(90deg, #40cc00, #85cc00);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 56, 36, 0.6);
 }
 
 .card {
@@ -877,7 +965,6 @@ label,
 }
 
 .menu-item-description,
-.modal-description,
 .aboutTextContainer,
 .contactTitle,
 .contactSubtitle,
@@ -1189,16 +1276,31 @@ label,
   .modal-container {
     flex-direction: column;
     max-height: 95vh;
+    max-width: 95vw;
   }
   .modal-image-section {
     width: 100%;
-    min-height: 200px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    height: 250px;
+    border-radius: 1.5rem;
+
   }
   .modal-details {
     width: 100%;
-    padding: 1.5rem;
+    padding: 2rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    overflow-y: visible;
+  }
+  .modal-title {
+    font-size: 16pt;
+    color: var(--secondary-color);
+  }
+  .modal-type {
+    font-size: 12pt;
+    color: var(--text-light);
+  }
+  .modal-description {
+    font-size: 12pt;
+    color: var(--text-light);
   }
   .menu-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1247,15 +1349,14 @@ label,
 
   .modal-container {
     flex-direction: row;
+    max-width: 1200px;
   }
 
   .modal-image-section {
-    width: 50%;
+    width: 55%;
   }
 
-  .modal-details {
-    width: 50%;
-  }
+  
 
   .menu-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1347,11 +1448,6 @@ label,
   border-radius: 9999px;
 }
 
-/* =======================
-   Custom modifications
-   ======================= */
-
-/* الأزرار */
 button,
 .button-primary,
 .heroButton,
@@ -1376,7 +1472,6 @@ button:hover,
   box-shadow: 0 4px 10px rgba(0, 56, 36, 0.3);
 }
 
-/* زرار إظهار/إخفاء الفلاتر */
 .filterToggleBtn {
   display: none;
   background: var(--secondary-color);
@@ -1394,7 +1489,6 @@ button:hover,
   color: var(--secondary-color);
 }
 
-/* أزرار الفلاتر */
 .filterButton {
   background: transparent;
   color: var(--highlight-color);
@@ -1408,7 +1502,6 @@ button:hover,
   box-shadow: 0 0 0 3px rgba(0, 56, 36, 0.3);
 }
 
-/* موبايل: الفلاتر مخفية بزرار */
 @media (max-width: 767px) {
   .filterToggleBtn {
     display: inline-block;
@@ -1433,7 +1526,6 @@ button:hover,
   }
 }
 
-/* أنماط الـ Pagination */
 .pagination-wrapper {
   display: flex;
   flex-direction: column;
@@ -1544,7 +1636,6 @@ button:hover,
   transform: none;
 }
 
-/* دعم RTL للـ Pagination */
 [dir="rtl"] .pagination-nav {
   flex-direction: row-reverse;
 }
@@ -1557,7 +1648,6 @@ button:hover,
   flex-direction: row-reverse;
 }
 
-/* التصميم المتجاوب للـ Pagination */
 @media (max-width: 768px) {
   .pagination-wrapper {
     margin: 1rem 0;
@@ -1602,7 +1692,6 @@ button:hover,
   }
 }
 
-/* Size with type image styles */
 .modal-size-info {
   display: flex;
   align-items: center;
@@ -1626,7 +1715,6 @@ button:hover,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* ===== IMAGE MODAL ===== */
 .image-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1654,9 +1742,9 @@ button:hover,
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  background: #fff; /* أو نفس لون الكرت */
+  background: #fff; 
   border-radius: 1rem;
-  overflow: hidden; /* يمنع الطلوع بره */
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
 }
@@ -1666,7 +1754,7 @@ button:hover,
   padding: 1rem;
   scrollbar-width: thin; 
   scrollbar-color: #085414 #1d9b45;
-  max-height: 80vh; /* عشان الاسكرول يشتغل */
+  max-height: 80vh;
 }
 
 .image-modal-content::-webkit-scrollbar {
