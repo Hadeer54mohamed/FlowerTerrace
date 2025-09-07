@@ -29,23 +29,25 @@ function ImageModal({ imageUrl, imageName, onClose }) {
 
   return (
     <div
-      className="image-modal-backdrop"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
+    className="image-modal-backdrop"
+    onClick={onClose}
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      className="image-modal-container"
+      onClick={(e) => e.stopPropagation()}
     >
-      <div
-        className="image-modal-container"
-        onClick={(e) => e.stopPropagation()}
+      <button
+        type="button"
+        onClick={onClose}
+        className="image-modal-close-btn"
+        aria-label="إغلاق"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          className="image-modal-close-btn"
-          aria-label="إغلاق"
-        >
-          &times;
-        </button>
+        &times;
+      </button>
+  
+      <div className="image-modal-content">
         <img
           src={imageUrl}
           alt={imageName || "صورة"}
@@ -56,6 +58,8 @@ function ImageModal({ imageUrl, imageName, onClose }) {
         />
       </div>
     </div>
+  </div>
+  
   );
 }
 
@@ -122,7 +126,7 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
             }}
           />
         </div>
-
+        <div className="modal-content">
         <div className="modal-details">
           <h2 className="modal-title">{displayName}</h2>
 
@@ -142,32 +146,34 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
           )}
 
           {displayDescription && (
-            <p className="modal-description">{stripHtml(displayDescription)}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: displayDescription }}
+              className="modal-description"
+            ></div>
           )}
 
-          {item.fullData?.sizes?.length > 0 && (
-            <div className="modal-sizes-list">
-              {item.fullData.sizes.map((size, index) => (
-                <div key={index} className="modal-size-item ">
-                  <div className="modal-size-info">
-                    {item.fullData?.types?.[0]?.image_url && (
+          {/* عرض كل الأنواع وكل الأحجام التابعة لها */}
+          {item.fullData?.types?.length > 0 && (
+            <div className="modal-types-list">
+              {item.fullData.types.map((type, typeIndex) => (
+                <div key={typeIndex} className="modal-type-block">
+                  <div className="modal-type-header">
+                    {type.image_url && (
                       <img
-                        src={item.fullData.types[0].image_url}
+                        src={type.image_url}
                         alt={
                           locale === "ar"
-                            ? item.fullData.types[0].name_ar
-                            : item.fullData.types[0].name_en ||
-                              item.fullData.types[0].name_ar
+                            ? type.name_ar
+                            : type.name_en || type.name_ar
                         }
-                        className="modal-size-type-image"
+                        className="modal-type-image"
                         onClick={() =>
                           onImageClick({
-                            url: item.fullData.types[0].image_url,
+                            url: type.image_url,
                             name:
                               locale === "ar"
-                                ? item.fullData.types[0].name_ar
-                                : item.fullData.types[0].name_en ||
-                                  item.fullData.types[0].name_ar,
+                                ? type.name_ar
+                                : type.name_en || type.name_ar,
                           })
                         }
                         onError={(e) => {
@@ -175,31 +181,44 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
                         }}
                       />
                     )}
-                    <span className="modal-size-name">
+                    <h3 className="modal-type-title">
                       {locale === "ar"
-                        ? size.size_ar
-                        : size.size_en || size.size_ar}
-                    </span>
+                        ? type.name_ar
+                        : type.name_en || type.name_ar}
+                    </h3>
                   </div>
-                  <div className="modal-price-group">
-                    {size.offer_price && (
-                      <span className="modal-offer-price">
-                        {size.offer_price} {t("currency")}
-                      </span>
-                    )}
-                    <span
-                      className={`modal-price ${
-                        size.offer_price ? "modal-price-old" : ""
-                      }`}
-                    >
-                      {size.price} {t("currency")}
-                    </span>
-                  </div>
+
+                  {/* الأحجام الخاصة بالنوع */}
+                  {type.sizes?.map((size, sizeIndex) => (
+  <div key={sizeIndex} className="modal-size-item">
+    <div className="modal-size-info">
+      <span className="modal-size-name">
+        {locale === "ar" ? size.size_ar : size.size_en || size.size_ar}
+      </span>
+    </div>
+    <div className="modal-price-group">
+      {size.offer_price && (
+        <span className="modal-offer-price">
+          {size.offer_price} {t("currency")}
+        </span>
+      )}
+      <span
+        className={`modal-price ${
+          size.offer_price ? "modal-price-old" : ""
+        }`}
+      >
+        {size.price} {t("currency")}
+      </span>
+    </div>
+  </div>
+))}
+
                 </div>
               ))}
             </div>
           )}
 
+          {/* لو المنتج مفيهوش أنواع وأحجام */}
           {item.price && !item.fullData?.sizes && (
             <div className="modal-single-price">
               {item.price} {t("currency")}
@@ -207,6 +226,7 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }
