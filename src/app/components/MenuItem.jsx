@@ -39,9 +39,10 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
         </p>
       )}
 
-      <div className="menu-item-description">
-        {stripHtml(displayDescription) || ""}
-      </div>
+      <div
+        dangerouslySetInnerHTML={{ __html: displayDescription }}
+        className="menu-item-description"
+      ></div>
 
       {!hidePrice && (item.price || firstSize?.price) && (
         <div className="menu-item-price-container">
