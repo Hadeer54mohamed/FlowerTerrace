@@ -5,6 +5,31 @@ function stripHtml(html) {
   return html.replace(/<[^>]*>/g, "");
 }
 
+function sanitizeHtmlKeepBold(html) {
+  if (!html) return "";
+  let result = String(html);
+  // Decode non-breaking space to normal space
+  result = result.replace(/&nbsp;/gi, " ");
+  // Remove all tags except <b> and <strong>
+  // 1) Temporarily protect <b> and <strong>
+  result = result
+    .replace(/<\s*strong\s*>/gi, "__STRONG_OPEN__")
+    .replace(/<\s*\/\s*strong\s*>/gi, "__STRONG_CLOSE__")
+    .replace(/<\s*b\s*>/gi, "__B_OPEN__")
+    .replace(/<\s*\/\s*b\s*>/gi, "__B_CLOSE__");
+  // 2) Strip all remaining tags
+  result = result.replace(/<[^>]*>/g, "");
+  // 3) Restore bold tags in minimal form
+  result = result
+    .replace(/__STRONG_OPEN__/g, "<b>")
+    .replace(/__STRONG_CLOSE__/g, "</b>")
+    .replace(/__B_OPEN__/g, "<b>")
+    .replace(/__B_CLOSE__/g, "</b>");
+  // Collapse excessive whitespace
+  result = result.replace(/\s+/g, " ").trim();
+  return result;
+}
+
 export default function MenuItem({ item, onOpenDetails, hidePrice }) {
   const t = useTranslations("");
   const locale = useLocale();
@@ -16,6 +41,7 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
     locale === "ar"
       ? item.description
       : item.description_en || item.description;
+  const safeDescription = sanitizeHtmlKeepBold(displayDescription);
 
   const hasOfferPrice = item.fullData?.sizes?.some((size) => size.offer_price);
   const firstSize = item.fullData?.sizes?.[0];
@@ -40,8 +66,8 @@ export default function MenuItem({ item, onOpenDetails, hidePrice }) {
       )}
 
       <div
-        dangerouslySetInnerHTML={{ __html: displayDescription }}
         className="menu-item-description"
+        dangerouslySetInnerHTML={{ __html: safeDescription }}
       ></div>
 
       {!hidePrice && (item.price || firstSize?.price) && (

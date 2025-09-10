@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import FilterBar from "./FilterBar";
 import MenuGrid from "./MenuGrid";
 import Pagination from "./Pagination";
@@ -29,46 +29,69 @@ function ImageModal({ imageUrl, imageName, onClose }) {
 
   return (
     <div
-    className="image-modal-backdrop"
-    onClick={onClose}
-    role="dialog"
-    aria-modal="true"
-  >
-    <div
-      className="image-modal-container"
-      onClick={(e) => e.stopPropagation()}
+      className="image-modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
-      <button
-        type="button"
-        onClick={onClose}
-        className="image-modal-close-btn"
-        aria-label="إغلاق"
+      <div
+        className="image-modal-container"
+        onClick={(e) => e.stopPropagation()}
       >
-        &times;
-      </button>
-  
-      <div className="image-modal-content">
-        <img
-          src={imageUrl}
-          alt={imageName || "صورة"}
-          className="image-modal-image"
-          onError={(e) => {
-            e.currentTarget.src = "/images/food.jpg";
-          }}
-        />
+        <button
+          type="button"
+          onClick={onClose}
+          className="image-modal-close-btn"
+          aria-label="إغلاق"
+        >
+          &times;
+        </button>
+
+        <div className="image-modal-content">
+          <img
+            src={imageUrl}
+            alt={imageName || "صورة"}
+            className="image-modal-image"
+            onError={(e) => {
+              e.currentTarget.src = "/images/food.jpg";
+            }}
+          />
+        </div>
       </div>
     </div>
-  </div>
-  
   );
 }
 
 function ItemDetailsModal({ item, onClose, onImageClick }) {
   const t = useTranslations("");
   const locale = useLocale();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = useMemo(() => {
+    if (!item) return [];
+    const list = [];
+    if (item.image) {
+      list.push({
+        url: item.image,
+        name: locale === "ar" ? item.name : item.name_en || item.name,
+      });
+    }
+    if (item.fullData?.types?.length) {
+      item.fullData.types.forEach((type) => {
+        if (type.image_url) {
+          list.push({
+            url: type.image_url,
+            name: locale === "ar" ? type.name_ar : type.name_en || type.name_ar,
+          });
+        }
+      });
+    }
+    return list;
+  }, [item, locale]);
 
   useEffect(() => {
     if (!item) return;
+    setCurrentImageIndex(0);
 
     const onEsc = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onEsc);
@@ -99,6 +122,16 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
     return html.replace(/<[^>]*>/g, "");
   }
 
+  const goPrev = () => {
+    if (!images.length) return;
+    setCurrentImageIndex((idx) => (idx - 1 + images.length) % images.length);
+  };
+
+  const goNext = () => {
+    if (!images.length) return;
+    setCurrentImageIndex((idx) => (idx + 1) % images.length);
+  };
+
   return (
     <div
       className="modal-backdrop"
@@ -117,116 +150,113 @@ function ItemDetailsModal({ item, onClose, onImageClick }) {
         </button>
 
         <div className="modal-image-section">
-          <img
-            src={item.image || "/images/food.jpg"}
-            alt={displayName}
-            className="modal-image"
-            onError={(e) => {
-              e.currentTarget.src = "/images/food.jpg";
-            }}
-          />
+          {images.length > 0 && (
+            <img
+              src={images[currentImageIndex]?.url || "/images/food.jpg"}
+              alt={images[currentImageIndex]?.name || displayName}
+              className="modal-image"
+              onError={(e) => {
+                e.currentTarget.src = "/images/food.jpg";
+              }}
+            />
+          )}
+          {images.length > 1 && (
+            <>
+              <button
+                type="button"
+                className="modal-nav-btn left"
+                onClick={goPrev}
+                aria-label={locale === "ar" ? "السابق" : "Previous"}
+              >
+                {locale === "ar" ? "❮" : "❮"}
+              </button>
+              <button
+                type="button"
+                className="modal-nav-btn right"
+                onClick={goNext}
+                aria-label={locale === "ar" ? "التالي" : "Next"}
+              >
+                {locale === "ar" ? "❯" : "❯"}
+              </button>
+            </>
+          )}
         </div>
         <div className="modal-content">
-        <div className="modal-details">
-          <h2 className="modal-title">{displayName}</h2>
+          <div className="modal-details">
+            <h2 className="modal-title">{displayName}</h2>
 
-          {item.category && (
-            <p className="modal-type">
-              {locale === "ar" ? "التصنيف:" : "Category:"}{" "}
-              {locale === "ar"
-                ? item.category.name_ar
-                : item.category.name_en || item.category.name_ar}
-            </p>
-          )}
+            {item.category && (
+              <p className="modal-type">
+                {locale === "ar" ? "التصنيف:" : "Category:"}{" "}
+                {locale === "ar"
+                  ? item.category.name_ar
+                  : item.category.name_en || item.category.name_ar}
+              </p>
+            )}
 
-          {displayType && (
-            <p className="modal-type">
-              {locale === "ar" ? "النوع:" : "Type:"} {displayType}
-            </p>
-          )}
+            {displayType && (
+              <p className="modal-type">
+                {locale === "ar" ? "النوع:" : "Type:"} {displayType}
+              </p>
+            )}
 
-          {displayDescription && (
-            <div
-              dangerouslySetInnerHTML={{ __html: displayDescription }}
-              className="modal-description"
-            ></div>
-          )}
+            {displayDescription && (
+              <div
+                dangerouslySetInnerHTML={{ __html: displayDescription }}
+                className="modal-description"
+              ></div>
+            )}
 
-          {/* عرض كل الأنواع وكل الأحجام التابعة لها */}
-          {item.fullData?.types?.length > 0 && (
-            <div className="modal-types-list">
-              {item.fullData.types.map((type, typeIndex) => (
-                <div key={typeIndex} className="modal-type-block">
-                  <div className="modal-type-header">
-                    {type.image_url && (
-                      <img
-                        src={type.image_url}
-                        alt={
-                          locale === "ar"
-                            ? type.name_ar
-                            : type.name_en || type.name_ar
-                        }
-                        className="modal-type-image"
-                        onClick={() =>
-                          onImageClick({
-                            url: type.image_url,
-                            name:
-                              locale === "ar"
-                                ? type.name_ar
-                                : type.name_en || type.name_ar,
-                          })
-                        }
-                        onError={(e) => {
-                          e.currentTarget.src = "/images/food.jpg";
-                        }}
-                      />
-                    )}
-                    <h3 className="modal-type-title">
-                      {locale === "ar"
-                        ? type.name_ar
-                        : type.name_en || type.name_ar}
-                    </h3>
+            {item.fullData?.types?.length > 0 && (
+              <div className="modal-types-list">
+                {item.fullData.types.map((type, typeIndex) => (
+                  <div key={typeIndex} className="modal-type-block">
+                    <div className="modal-type-header">
+                      <h3 className="modal-type-title">
+                        {locale === "ar"
+                          ? type.name_ar
+                          : type.name_en || type.name_ar}
+                      </h3>
+                    </div>
+
+                    {type.sizes?.map((size, sizeIndex) => (
+                      <div key={sizeIndex} className="modal-size-item">
+                        <div className="modal-size-info">
+                          <span className="modal-size-name">
+                            {locale === "ar"
+                              ? size.size_ar
+                              : size.size_en || size.size_ar}
+                          </span>
+                        </div>
+                        <div className="modal-price-group">
+                          {size.offer_price && (
+                            <span className="modal-offer-price">
+                              {size.offer_price} {t("currency")}
+                            </span>
+                          )}
+                          <span
+                            className={`modal-price ${
+                              size.offer_price ? "modal-price-old" : ""
+                            }`}
+                          >
+                            {size.price} {t("currency")}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                ))}
+              </div>
+            )}
 
-                  {/* الأحجام الخاصة بالنوع */}
-                  {type.sizes?.map((size, sizeIndex) => (
-  <div key={sizeIndex} className="modal-size-item">
-    <div className="modal-size-info">
-      <span className="modal-size-name">
-        {locale === "ar" ? size.size_ar : size.size_en || size.size_ar}
-      </span>
-    </div>
-    <div className="modal-price-group">
-      {size.offer_price && (
-        <span className="modal-offer-price">
-          {size.offer_price} {t("currency")}
-        </span>
-      )}
-      <span
-        className={`modal-price ${
-          size.offer_price ? "modal-price-old" : ""
-        }`}
-      >
-        {size.price} {t("currency")}
-      </span>
-    </div>
-  </div>
-))}
-
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* لو المنتج مفيهوش أنواع وأحجام */}
-          {item.price && !item.fullData?.sizes && (
-            <div className="modal-single-price">
-              {item.price} {t("currency")}
-            </div>
-          )}
+            {item.price && !item.fullData?.sizes && (
+              <div className="modal-single-price">
+                {item.price} {t("currency")}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
@@ -237,7 +267,7 @@ export default function MainContent() {
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
 
   const openDetails = (item) => {
     setSelectedItem(item);

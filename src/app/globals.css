@@ -495,7 +495,6 @@ label,
   -o-border-radius: 10px;
 }
 
-/* تحسينات للأزرار المحسنة */
 .enhanced-filter-btn {
   display: flex;
   flex-direction: column;
@@ -599,7 +598,6 @@ label,
   text-overflow: ellipsis;
 }
 
-/* تأثيرات التحميل */
 .loading-skeleton {
   opacity: 0.6;
   pointer-events: none;
@@ -621,7 +619,6 @@ label,
   }
 }
 
-/* تأثيرات الظهور للتصنيفات */
 .enhanced-filter-btn {
   animation: fadeInUp 0.5s ease-out forwards;
   opacity: 0;
@@ -912,6 +909,36 @@ label,
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
+}
+
+.modal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.modal-nav-btn.left {
+  left: 12px;
+}
+
+.modal-nav-btn.right {
+  right: 12px;
+}
+
+.modal-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .modal-image {
@@ -1220,6 +1247,7 @@ label,
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1343,14 +1371,12 @@ label,
   margin-bottom: 1.2rem;
   text-align: center;
   line-height: 1.2;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 10pt;
   font-weight: 100;
@@ -1493,7 +1519,6 @@ label,
     -o-border-radius: 10px;
   }
 
-  /* تحسينات الهاتف المحمول للأزرار المحسنة */
   .enhanced-filter-btn {
     padding: 8px 12px;
     gap: 4px;
@@ -1548,8 +1573,9 @@ label,
   }
 
   .menu-item-description {
-    height: 60px;
+    height: auto;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .cartOpenButton {
@@ -1608,8 +1634,9 @@ label,
   }
 
   .menu-item-description {
-    height: 75px;
-    -webkit-line-clamp: 3;
+    height: auto;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .filterButtonsContainer {
@@ -1787,7 +1814,6 @@ label,
   }
 }
 
-/* للشاشات الكبيرة جداً - أقصى 4 كروت */
 @media (min-width: 1536px) {
   .menu-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -2211,3 +2237,12 @@ button:hover,
     transform: scale(1);
   }
 }
+.menu-item-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
