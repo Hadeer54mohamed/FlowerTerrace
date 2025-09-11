@@ -6,7 +6,8 @@ import {
   FaInstagram,
   FaSnapchatGhost,
   FaQrcode,
-  FaTiktok,و
+  FaTiktok,
+  FaGoogle,
 } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
