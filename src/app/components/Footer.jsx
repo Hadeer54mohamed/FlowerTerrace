@@ -1,16 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   FaFacebookF,
   FaInstagram,
   FaSnapchatGhost,
+  FaQrcode,
   FaTiktok,
 } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import QRModal from "./QRModal";
 
 const Footer = () => {
   const t = useTranslations("Footer");
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+
+  const handleQRClick = () => {
+    setIsQRModalOpen(true);
+  };
+
+  const handleCloseQRModal = () => {
+    setIsQRModalOpen(false);
+  };
 
   return (
     <footer className="footerSection">
@@ -53,6 +65,13 @@ const Footer = () => {
             >
               <FaTiktok />
             </a>
+            <button
+              onClick={handleQRClick}
+              className="footerSocialIcon"
+              type="button"
+            >
+              <FaQrcode />
+            </button>
           </div>
         </div>
 
@@ -60,6 +79,8 @@ const Footer = () => {
           <p>{t("hours")}</p>
         </div>
       </div>
+
+      <QRModal isOpen={isQRModalOpen} onClose={handleCloseQRModal} />
     </footer>
   );
 };

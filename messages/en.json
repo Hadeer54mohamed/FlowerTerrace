@@ -36,7 +36,7 @@
   },
   "Footer": {
     "copyright": "All rights reserved © 2024 Our  Restaurant",
-    "hours": "Working Hours: Daily from 10 AM to 11 PM"
+    "hours": "Working Hours: 24/7"
   },
   "EmptyState": {
     "alt": "Hands icon indicating no search results",
@@ -49,5 +49,10 @@
     "items": "items",
     "previous": "Previous",
     "next": "Next"
+  },
+  "QRModal": {
+    "title": "QR Code",
+    "qrAlt": "QR Code for restaurant",
+    "description": "Scan this QR code to rate our restaurant"
   }
 }
