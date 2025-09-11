@@ -36,8 +36,9 @@
   },
   "Footer": {
     "copyright": "All rights reserved © 2024 Our  Restaurant",
-    "hours": "Working Hours: Daily from 10 AM to 11 PM"
-  },
+      "hours": "Working Hours: Available 24/7",
+      "reviewBtn": "Write a Review"
+    },
   "EmptyState": {
     "alt": "Hands icon indicating no search results",
     "title": "We couldn't find what you're looking for",

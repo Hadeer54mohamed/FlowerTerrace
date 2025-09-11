@@ -5,12 +5,14 @@ import {
   FaFacebookF,
   FaInstagram,
   FaSnapchatGhost,
-  FaTiktok,
+  FaQrcode,
+  FaTiktok,و
 } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
 const Footer = () => {
   const t = useTranslations("Footer");
+
 
   return (
     <footer className="footerSection">
@@ -52,6 +54,22 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <FaTiktok />
+            </a>
+            <a
+              href="/qrcode.jpg"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaQrcode />
+            </a>
+            <a
+              href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fsearch.google.com%2Flocal%2Fwritereview%3Fplaceid%3DChIJ3_yQ7WwDLz4RD9dd-rQR-GE%26source%3Dg.page.m.ia._%26utm_source%3Dgbp%26laa%3Dnmx-review-solicitation-ia2&ifkv=AdBytiNtrrBMGu7c2tSyBOaSVPBB_zPdOF3RBkO6P5t7zi6HvdSSuhlsMO3ImLX9u78FuR1R-LOQ4g&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S337171168%3A1757592058379880"
+              className="footerSocialIcon"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGoogle  />
             </a>
           </div>
         </div>
