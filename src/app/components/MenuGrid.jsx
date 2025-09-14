@@ -132,20 +132,18 @@ export default function MenuGrid({
           );
         })}
       </div>
-
       {/* مؤشر التحميل */}
       {hasMoreProducts && (
         <div ref={loadingRef} className="flex justify-center items-center py-8">
           <div className="text-lg text-gray-600">جاري تحميل المزيد...</div>
         </div>
       )}
-
       {/* رسالة انتهاء المنتجات */}
-      {!hasMoreProducts && filteredProducts.length > 0 && (
+      {/* {!hasMoreProducts && filteredProducts.length > 0 && (
         <div className="flex justify-center items-center py-8">
           <div className="text-lg text-gray-500">تم عرض جميع المنتجات</div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

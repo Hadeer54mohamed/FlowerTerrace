@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts, getCategories } from "../../../services/getProducts";
 
@@ -47,7 +46,6 @@ const getCategoryIcon = (categoryName) => {
 export default function FilterBar({ filter, setFilter }) {
   const t = useTranslations("FilterBar");
   const locale = useLocale();
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const { data: products, isLoading: productsLoading } = useQuery({
     queryKey: ["products"],
@@ -67,15 +65,7 @@ export default function FilterBar({ filter, setFilter }) {
 
   return (
     <section id="menu" className="filterBarSection">
-      <button
-        type="button"
-        className="filterToggleBtn"
-        onClick={() => setIsFilterOpen((prev) => !prev)}
-      >
-        ☰
-      </button>
-
-      <div className={`filterButtonsContainer ${isFilterOpen ? "show" : ""}`}>
+      <div className="filterButtonsContainer">
         <button
           type="button"
           className={`filterButton enhanced-filter-btn ${

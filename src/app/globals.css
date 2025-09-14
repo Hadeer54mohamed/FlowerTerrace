@@ -1959,23 +1959,6 @@ button:hover,
   box-shadow: 0 4px 10px rgba(0, 56, 36, 0.3);
 }
 
-.filterToggleBtn {
-  display: none;
-  background: var(--secondary-color);
-  color: var(--highlight-color);
-  border-radius: 9999px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  border: 2px solid var(--highlight-color);
-  font-weight: bold;
-}
-
-.filterToggleBtn:hover {
-  background: var(--highlight-color);
-  color: var(--secondary-color);
-}
-
 .filterButton {
   background: transparent;
   color: var(--highlight-color);
@@ -1990,26 +1973,10 @@ button:hover,
 }
 
 @media (max-width: 767px) {
-  .filterToggleBtn {
-    display: inline-block;
-  }
-
   .filterButtonsContainer {
-    display: none;
+    display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-  }
-
-  .filterButtonsContainer.show {
-    display: flex;
-  }
-}
-
-@media (max-width: 767px) {
-  .filterToggleBtn {
-    margin-right: auto;
-    margin-left: 0;
-    display: block;
   }
 }
 
