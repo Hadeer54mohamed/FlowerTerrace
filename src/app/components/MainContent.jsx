@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from "react";
 import FilterBar from "./FilterBar";
 import MenuGrid from "./MenuGrid";
-import Pagination from "./Pagination";
 import { useTranslations, useLocale } from "next-intl";
 
 function ImageModal({ imageUrl, imageName, onClose }) {
@@ -265,9 +264,8 @@ export default function MainContent() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 12;
+  const [displayedItems, setDisplayedItems] = useState(12); // عدد المنتجات المعروضة
+  const itemsPerLoad = 12; // عدد المنتجات التي يتم تحميلها في كل مرة
 
   const openDetails = (item) => {
     setSelectedItem(item);
@@ -277,24 +275,13 @@ export default function MainContent() {
     setSelectedItem(null);
   };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleTotalItemsChange = (count) => {
-    setTotalItems(count);
-    const totalPages = Math.ceil(count / itemsPerPage);
-    if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
-    }
+  const loadMoreItems = () => {
+    setDisplayedItems((prev) => prev + itemsPerLoad);
   };
 
   useEffect(() => {
-    setCurrentPage(1);
+    setDisplayedItems(12); // إعادة تعيين عدد المنتجات المعروضة عند تغيير الفلتر
   }, [filter]);
-
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <>
@@ -304,19 +291,9 @@ export default function MainContent() {
           onOpenDetails={openDetails}
           hidePriceOnCard={true}
           activeFilter={filter}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          onTotalItemsChange={handleTotalItemsChange}
+          displayedItems={displayedItems}
+          onLoadMore={loadMoreItems}
         />
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            totalItems={totalItems}
-            itemsPerPage={itemsPerPage}
-          />
-        )}
       </main>
       <ItemDetailsModal
         item={selectedItem}

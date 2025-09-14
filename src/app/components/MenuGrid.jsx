@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import MenuItem from "./MenuItem";
 import EmptyState from "./EmptyState";
 import { useQuery } from "@tanstack/react-query";
@@ -9,12 +9,13 @@ export default function MenuGrid({
   onOpenDetails,
   hidePriceOnCard,
   activeFilter,
-  currentPage = 1,
-  itemsPerPage = 9,
-  onTotalItemsChange,
+  displayedItems = 12,
+  onLoadMore,
 }) {
   const t = useTranslations("");
   const locale = useLocale();
+  const observerRef = useRef();
+  const loadingRef = useRef();
 
   const {
     data: products,
@@ -55,11 +56,34 @@ export default function MenuGrid({
     return desc === String(activeFilter).toLowerCase();
   });
 
+  // إنشاء Intersection Observer لمراقبة العنصر الأخير
+  const lastProductElementRef = useCallback(
+    (node) => {
+      if (isLoading) return;
+      if (observerRef.current) observerRef.current.disconnect();
+
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (
+          entries[0].isIntersecting &&
+          displayedItems < filteredProducts.length
+        ) {
+          onLoadMore();
+        }
+      });
+
+      if (node) observerRef.current.observe(node);
+    },
+    [isLoading, displayedItems, filteredProducts.length, onLoadMore]
+  );
+
+  // تنظيف Observer عند إلغاء التحميل
   useEffect(() => {
-    if (onTotalItemsChange) {
-      onTotalItemsChange(filteredProducts.length);
-    }
-  }, [filteredProducts, onTotalItemsChange]);
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -83,23 +107,45 @@ export default function MenuGrid({
     return <EmptyState />;
   }
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+  // عرض المنتجات حسب العدد المحدد
+  const visibleProducts = filteredProducts.slice(0, displayedItems);
+  const hasMoreProducts = displayedItems < filteredProducts.length;
 
   return (
     <div className="menu-grid-container">
       <div className="menu-grid">
-        {paginatedProducts.map((item) => (
-          <div key={item.id} className="menu-grid-item">
-            <MenuItem
-              item={item}
-              onOpenDetails={onOpenDetails}
-              hidePrice={hidePriceOnCard}
-            />
-          </div>
-        ))}
+        {visibleProducts.map((item, index) => {
+          // إضافة المرجع للعنصر الأخير لمراقبة التمرير
+          const isLastItem = index === visibleProducts.length - 1;
+          return (
+            <div
+              key={item.id}
+              className="menu-grid-item"
+              ref={isLastItem ? lastProductElementRef : null}
+            >
+              <MenuItem
+                item={item}
+                onOpenDetails={onOpenDetails}
+                hidePrice={hidePriceOnCard}
+              />
+            </div>
+          );
+        })}
       </div>
+
+      {/* مؤشر التحميل */}
+      {hasMoreProducts && (
+        <div ref={loadingRef} className="flex justify-center items-center py-8">
+          <div className="text-lg text-gray-600">جاري تحميل المزيد...</div>
+        </div>
+      )}
+
+      {/* رسالة انتهاء المنتجات */}
+      {!hasMoreProducts && filteredProducts.length > 0 && (
+        <div className="flex justify-center items-center py-8">
+          <div className="text-lg text-gray-500">تم عرض جميع المنتجات</div>
+        </div>
+      )}
     </div>
   );
 }
