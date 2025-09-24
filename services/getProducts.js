@@ -17,7 +17,7 @@ export async function getProducts() {
         )
       `
     )
-    .order("created_at", { ascending: false });
+    .order("sort_order", { ascending: true });
 
   if (error) {
     console.error("فشل في جلب المنيو:", error.message);
