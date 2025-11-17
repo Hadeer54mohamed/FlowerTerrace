@@ -143,10 +143,18 @@ label,
   background-image: url("/images/headerbg.png");
   background-repeat: no-repeat;
   background-position: center center;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
 }
 
 .logo-img {
   margin: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .header-title {
@@ -163,8 +171,18 @@ label,
   font-weight: normal;
   position: relative;
 }
-.navz {
-  display: none;
+.language-switcher-container {
+  position: absolute;
+  top: 1rem;
+  z-index: 100;
+}
+
+.lang-position-en {
+  right: 1.5rem;
+}
+
+.lang-position-ar {
+  left: 1.5rem;
 }
 
 .desktop-nav .nav-link:hover {
@@ -176,6 +194,10 @@ label,
   margin: auto;
   text-align: center;
   padding: 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  max-height: 100%;
 }
 
 .desktop-nav .nav-link::after {
@@ -195,20 +217,30 @@ label,
 }
 
 .lang-btn {
-  padding: 0.5rem 1rem;
-  background-color: var(--secondary-color);
-  color: var(--text-light);
-  border-radius: 0.5rem;
-  font-size: 9pt;
-  font-weight: normal;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  color: var(--secondary-color);
+  border-radius: 9999px;
+  font-size: 10pt;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 60px;
+  text-align: center;
 }
 
 .lang-btn:hover {
-  background-color: var(--highlight-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.lang-btn:active {
+  transform: translateY(0) scale(1);
 }
 
 .overlay-bg {
@@ -466,6 +498,8 @@ label,
   width: 100%;
   margin: 0;
   color: #fefefe;
+  position: relative;
+  z-index: 20;
 }
 
 .filterButtonsContainer {
@@ -1553,6 +1587,24 @@ label,
   .logo-img {
     max-height: 250px;
     width: auto;
+  }
+
+  .language-switcher-container {
+    top: 0.75rem;
+  }
+
+  .lang-position-en {
+    right: 1rem;
+  }
+
+  .lang-position-ar {
+    left: 1rem;
+  }
+
+  .lang-btn {
+    padding: 0.5rem 1rem;
+    font-size: 9pt;
+    min-width: 50px;
   }
 
   .filterBarSection {
