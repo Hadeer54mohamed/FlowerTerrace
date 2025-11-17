@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="header-bg  top-0   text-white z-50 relative">
       {/* Language Switcher Button */}
-      <div className={`language-switcher-container absolute top-16 md:top-20 z-10 ${locale === "ar" ? "lang-position-ar left-4 md:left-6" : "lang-position-en right-4 md:right-6"}`}>
+      <div className={`language-switcher-container absolute bottom-4 z-10 ${locale === "ar" ? "lang-position-ar left-4 md:left-6" : "lang-position-en right-4 md:right-6"}`}>
         <LanguageSwitcher />
       </div>
 

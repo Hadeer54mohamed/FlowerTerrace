@@ -174,7 +174,7 @@ label,
 }
 .language-switcher-container {
   position: absolute;
-  top: 1rem;
+  bottom: 1rem;
   z-index: 100;
 }
 
@@ -218,20 +218,20 @@ label,
 }
 
 .lang-btn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.4rem 0.8rem;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: var(--secondary-color);
   border-radius: 9999px;
-  font-size: 10pt;
   font-weight: 600;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 60px;
+  min-width: 50px;
   text-align: center;
+  font-size: 8.5pt;
 }
 
 .lang-btn:hover {
@@ -937,7 +937,6 @@ label,
   border-radius: 9999px;
   font-weight: normal;
   cursor: pointer;
-  font-size: 9pt;
 }
 
 .langBtn:hover {
@@ -1612,7 +1611,7 @@ label,
   }
 
   .language-switcher-container {
-    top: 0.75rem;
+    bottom: 0.75rem;
   }
 
   .lang-position-en {
@@ -1692,23 +1691,7 @@ label,
   display: none;
 }
 
-/* Language Button */
-.lang-btn {
-  padding: 0.5rem 1rem;
-  background-color: var(--secondary-color);
-  color: var(--text-light);
-  border-radius: 0.5rem;
-  font-size: 9pt;
-  font-weight: normal;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.lang-btn:hover {
-  background-color: var(--highlight-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+/* Language Button - Styles are defined above at line 220 */
 
 /* Mobile Menu Overlay */
 .overlay-bg {
@@ -1761,7 +1744,7 @@ label,
   }
 
   .language-switcher-container {
-    top: 0.75rem;
+    bottom: 0.75rem;
   }
 
   .lang-position-en {
@@ -1773,9 +1756,17 @@ label,
   }
 
   .lang-btn {
-    padding: 0.5rem 1rem;
-    font-size: 9pt;
-    min-width: 50px;
+    padding: 0.4rem 0.8rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--secondary-color);
+    border-radius: 9999px;
+    font-weight: 600;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 45px;
+    font-size: 8pt;
   }
 }
 
