@@ -1584,7 +1584,7 @@ label,
   } */
 
   .header-bg {
-    min-height: 320px;
+    min-height: 150px;
     height: auto;
     background-size: cover;
     padding: 1rem 0 2.5rem 0;
@@ -1628,7 +1628,7 @@ label,
   }
 
   .filterBarSection {
-    position: static;
+    position: relative;
     transform: none;
     display: flex;
     flex-direction: row;
@@ -1639,7 +1639,7 @@ label,
     backdrop-filter: none;
     border: none;
     border-radius: 0;
-    z-index: auto;
+    z-index: 100;
     box-shadow: none;
     margin-top: -7.5rem;
   }
