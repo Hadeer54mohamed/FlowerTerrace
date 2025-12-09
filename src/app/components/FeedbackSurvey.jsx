@@ -72,7 +72,7 @@ const FeedbackSurvey = () => {
     const hovered = hoveredQuestion[questionKey];
 
     return (
-      <div className="flex justify-center gap-2 md:gap-3">
+      <div className="stars-wrapper flex justify-center gap-2 md:gap-3">
         {[...Array(5)].map((_, index) => {
           const starValue = index + 1;
           const isActive = starValue <= (hovered || currentRating);
@@ -185,9 +185,9 @@ const FeedbackSurvey = () => {
             {/* Questions */}
             <div className="mt-5 mb-5">
               {questions.map((question, index) => (
-                <div
-                  key={question.id}
-                  className="rounded-xl transition-all duration-300 flex  items-center justify-between gap-4 p-4 mb-4"
+               <div
+               key={question.id}
+               className="question-card rounded-xl transition-all duration-300 flex items-center justify-between gap-4 p-4 mb-4"             
                   style={{
                     background:
                       "linear-gradient(135deg, rgba(0, 56, 36, 0.15), rgba(0, 56, 36, 0.08))",
@@ -242,7 +242,7 @@ const FeedbackSurvey = () => {
               >
                 {t("customerInfo") || "معلوماتك"}
               </h3>
-              <div className="flex items-center justify-between gap-2">
+              <div className="two-inputs flex items-center justify-between gap-2">
                 <div className="w-full">
                   <label
                     htmlFor="customerName"

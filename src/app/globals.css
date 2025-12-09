@@ -2526,3 +2526,42 @@ button:hover,
 .custom-margin-top {
   margin-top: 20px;
 }
+@media (max-width: 640px) {
+  .custom-margin-top {
+    margin-top: 1rem !important;
+  }
+
+  .question-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1.2rem !important;
+    padding: 1.2rem !important;
+  }
+
+  .question-card label {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    width: 100%;
+    text-align: center !important;
+  }
+
+  .question-card .stars-wrapper {
+    justify-content: center !important;
+  }
+
+  .two-inputs {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+
+  .two-inputs > div {
+    width: 100% !important;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem !important;
+    padding: 0.9rem !important;
+    border-radius: 12px !important;
+  }
+}
