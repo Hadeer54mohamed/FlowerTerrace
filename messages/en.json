@@ -24,16 +24,7 @@
     "title": "About Our Restaurant",
     "description": "We serve the most delicious traditional Arabic cuisine using the latest methods and finest ingredients. Our experience extends over 20 years in authentic Arabic cooking."
   },
-  "Contact": {
-    "title": "Contact Us",
-    "adressT": "Adress",
-    "phoneT": "phone",
-    "address": " Tanta ,Egypt",
-    "phone": " 17888",
-    "emailT": "Email",
-    "email": "info@restaurant.com",
-    "hours": " 11:00 AM - 11:00 PM"
-  },
+
   "Footer": {
     "copyright": "All rights reserved © 2024 Flower Terrace",
     "hours": "Working Hours: 24/7"
