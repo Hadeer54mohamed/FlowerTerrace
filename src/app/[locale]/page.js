@@ -8,8 +8,8 @@ export default function HomePage() {
     <>
       <Header />
       <MainContent />
-      <Contact />
-      <Footer />
+{/*       <Contact />
+ */}      <Footer />
     </>
   );
 }
