@@ -749,6 +749,24 @@ label,
   color: rgba(245, 245, 245, 0.8);
 }
 
+.developerCredit {
+  color: rgba(245, 245, 245, 0.8);
+  font-size: 13pt;
+}
+
+.developerCredit a {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14pt;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.developerCredit a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
 .footerSocialIcons {
   display: flex;
   gap: 1.8rem;
@@ -1970,7 +1988,7 @@ label,
   }
 
   .footerCopyright {
-    text-align: right;
+    text-align: center;
     margin-top: 0;
   }
 

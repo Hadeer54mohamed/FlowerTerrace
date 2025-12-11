@@ -29,7 +29,10 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="footerTop">
           <div className="footerCopyright">
-            <p>{t("copyright")}</p>
+            <p>
+              {t("copyright")}
+             
+            </p>
           </div>
 
           <div className="footerSocialIcons">
@@ -76,11 +79,21 @@ const Footer = () => {
         </div>
 
         <div className="footerBottom">
-          <p>{t("hours")}</p>
-        </div>
+        <span className="developerCredit" dir="rtl">
+                &nbsp;&nbsp; تصميم وبرمجة &nbsp;
+                <a
+                  href="https://www.facebook.com/ENSEGYPTEG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ENS
+                </a>
+              </span>        </div>
+        
       </div>
 
       <QRModal isOpen={isQRModalOpen} onClose={handleCloseQRModal} />
+      
     </footer>
   );
 };
