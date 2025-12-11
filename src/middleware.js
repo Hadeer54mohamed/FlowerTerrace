@@ -39,5 +39,7 @@ export default function middleware(request) {
 
 // Limit the middleware to paths that include the supported locales and exclude static assets
 export const config = {
-  matcher: ["/", "/(en|ar)/:path*", "/((?!_next|api|.*\\.).*)"],
+  matcher: [
+    "/((?!_next|favicon.ico|sitemap.xml|sitemap_index.xml|robots.txt|.*\\.txt).*)",
+  ],
 };
